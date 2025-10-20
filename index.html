@@ -1,0 +1,599 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers - Expert construction design, consultation, and engineering services. Build your vision with innovative solutions, projects, and industry insights.">
+    <meta name="keywords" content="construction design, architectural design, structural engineering, interior design, 3D rendering, project management, construction projects, building trends, Septan Developers">
+    <meta name="author" content="Septan Developers">
+    <title>Septan Developers - Build Your Vision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F5F5F5;
+            --text-primary: #1A2526;
+            --text-secondary: #6B7280;
+            --accent-primary: #1E3A8A;
+            --accent-secondary: #2DD4BF;
+            --overlay-dark: rgba(26, 37, 38, 0.6);
+            --success-color: #10B981;
+            --error-color: #EF4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        /* Navigation */
+        nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1rem 2rem; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo img, .logo picture img { max-width: 100px; height: auto; vertical-align: middle; }
+        nav ul { display: flex; justify-content: center; list-style: none; flex-wrap: wrap; }
+        nav ul li { margin: 0 1.5rem; position: relative; }
+        nav ul li a { color: var(--text-primary); text-decoration: none; font-weight: 600; text-transform: uppercase; transition: color 0.3s ease; }
+        nav ul li a:hover { color: var(--accent-secondary); }
+        nav ul li.dropdown > ul { display: none; position: absolute; top: 100%; left: 0; background: var(--bg-primary); box-shadow: 0 4px 8px rgba(0,0,0,0.1); list-style: none; padding: 1rem; z-index: 1000; }
+        nav ul li.dropdown:hover > ul { display: block; }
+        nav ul li.dropdown > ul li { margin: 0.5rem 0; }
+        /* Hero */
+        .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: #FFFFFF; }
+        .hero-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-dark); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; padding: 0 2rem; }
+        .hero h1 { font-size: 4rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.1em; }
+        .hero p { font-size: 1.5rem; margin-bottom: 2rem; text-transform: uppercase; }
+        .cta-button { background: var(--accent-primary); color: #FFFFFF; padding: 1rem 2rem; border-radius: 0; text-transform: uppercase; font-weight: 600; text-decoration: none; transition: background 0.3s ease; }
+        .cta-button:hover { background: var(--accent-secondary); }
+        /* Sections */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center; }
+        h2 { font-size: 3rem; font-weight: 700; text-transform: uppercase; margin-bottom: 3rem; letter-spacing: 0.05em; }
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .stat { font-size: 3rem; font-weight: 700; color: var(--accent-primary); }
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card { background: var(--bg-secondary); padding: 3rem; border-radius: 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-card:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .service-card img { width: 50px; height: 50px; margin-bottom: 1rem; filter: invert(20%) sepia(50%) saturate(300%) hue-rotate(200deg); }
+        .service-card h3 { font-size: 2rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem; }
+        .service-card p { color: var(--text-secondary); }
+        /* Projects */
+        .projects-filters { margin-bottom: 2rem; }
+        .projects-filters button { background: none; border: 1px solid var(--text-secondary); color: var(--text-secondary); padding: 0.5rem 1rem; margin: 0 0.5rem; cursor: pointer; transition: all 0.3s ease; }
+        .projects-filters button.active, .projects-filters button:hover { background: var(--accent-primary); color: #FFFFFF; border-color: var(--accent-primary); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .project-card { background: var(--bg-secondary); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .project-card:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .project-card img { width: 100%; height: 200px; object-fit: cover; }
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .project-info .meta { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem; }
+        .project-info p { color: var(--text-secondary); }
+        /* Blog */
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .blog-card { background: var(--bg-secondary); overflow: hidden; transition: transform 0.3s ease; }
+        .blog-card:hover { transform: scale(1.05); }
+        .blog-card img { width: 100%; height: 200px; object-fit: cover; }
+        .blog-info { padding: 1.5rem; }
+        .blog-category { background: var(--accent-primary); color: #FFFFFF; padding: 0.25rem 0.5rem; font-size: 0.8rem; display: inline-block; margin-bottom: 0.5rem; }
+        .blog-info h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .blog-info p { color: var(--text-secondary); margin-bottom: 1rem; }
+        .blog-info .date { color: var(--text-secondary); font-size: 0.9rem; }
+        /* Vision */
+        .vision { max-width: 800px; margin: 0 auto; text-align: left; }
+        /* Testimonials */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .testimonial-card { background: var(--bg-secondary); padding: 2rem; font-style: italic; }
+        .testimonial-card p { margin-bottom: 1rem; }
+        .testimonial-card cite { font-style: normal; font-weight: 600; color: var(--text-primary); }
+        /* CTA */
+        .cta-section { background: var(--bg-secondary); padding: 3rem; }
+        /* Contact */
+        .contact-form { max-width: 600px; margin: 0 auto; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--text-secondary); border-radius: 0; transition: border-color 0.3s ease; }
+        .contact-form input:invalid[aria-invalid="true"], .contact-form textarea:invalid[aria-invalid="true"] { border-color: var(--error-color); }
+        .contact-form .error-message, .contact-form .success-message { display: none; padding: 1rem; margin-bottom: 1rem; border-radius: 0; text-align: center; }
+        .contact-form .error-message.active, .contact-form .success-message.active { display: block; }
+        .contact-form .error-message { background: var(--error-color); color: #FFFFFF; }
+        .contact-form .success-message { background: var(--success-color); color: #FFFFFF; }
+        .contact-map { width: 100%; height: 300px; margin-top: 1rem; border: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .contact-details a { color: var(--accent-primary); text-decoration: none; transition: color 0.3s ease; }
+        .contact-details a:hover { color: var(--accent-secondary); }
+        /* Footer */
+        footer { background: var(--text-primary); color: #FFFFFF; padding: 2rem; text-align: center; }
+        footer a { color: var(--accent-secondary); text-decoration: none; margin: 0 0.5rem; }
+        footer a:hover { color: var(--accent-primary); }
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            h2 { font-size: 2rem; }
+            nav ul { flex-direction: column; }
+            nav ul li { margin: 0.5rem 0; }
+            .logo img, .logo picture img { max-width: 80px; }
+            .projects-filters button { margin: 0.25rem; }
+            .contact-map { height: 250px; }
+        }
+        @media (max-width: 480px) {
+            section { padding: 3rem 1rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .service-card img { width: 40px; height: 40px; }
+            .projects-grid, .blog-grid { grid-template-columns: 1fr; }
+            .contact-map { height: 200px; }
+            .logo img, .logo picture img { max-width: 60px; }
+            footer a { margin: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <picture>
+                <source srcset="logo.webp" type="image/webp">
+                <img src="logo.png" alt="Septan Developers Logo" aria-label="Septan Developers Logo" loading="lazy">
+            </picture>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li class="dropdown">
+                <a href="#services">Services</a>
+                <ul>
+                    <li><a href="services/architectural-design.html">Architectural Design</a></li>
+                    <li><a href="services/structural-engineering.html">Structural Engineering</a></li>
+                    <li><a href="services/interior-exterior-design.html">Interior & Exterior Design</a></li>
+                    <li><a href="services/3d-rendering-visualization.html">3D Rendering & Visualization</a></li>
+                    <li><a href="services/estimation-consultation.html">Estimation & Consultation</a></li>
+                    <li><a href="services/project-management.html">Project Management</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#projects">Projects</a>
+                <ul>
+                    <li><a href="projects/modern-villa.html">Modern Villa</a></li>
+                    <li><a href="projects/corporate-tower.html">Corporate Tower</a></li>
+                    <li><a href="projects/heritage-renovation.html">Heritage Renovation</a></li>
+                    <li><a href="projects/urban-loft.html">Urban Loft</a></li>
+                </ul>
+            </li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#vision">Vision</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero fade-in">
+        <div class="hero-slides">
+            <div class="hero-slide active">
+                <picture>
+                    <source srcset="hero-slide-1.webp" type="image/webp">
+                    <img src="hero-slide-1.jpg" alt="Modern construction crane at sunset" loading="lazy">
+                </picture>
+            </div>
+            <div class="hero-slide">
+                <picture>
+                    <source srcset="hero-slide-2.webp" type="image/webp">
+                    <img src="hero-slide-2.jpg" alt="Engineering blueprint on desk" loading="lazy">
+                </picture>
+            </div>
+            <div class="hero-slide">
+                <picture>
+                    <source srcset="hero-slide-3.webp" type="image/webp">
+                    <img src="hero-slide-3.jpg" alt="Innovative architectural design model" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Build Your Vision</h1>
+            <p># THE POWER OF INNOVATION DESIGN ENGINEERING</p>
+            <a href="#contact" class="cta-button">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="fade-in">
+        <h2>About</h2>
+        <p>Founded in 2010, Septan Developers is a premier construction design and engineering firm, celebrated globally for transformative work. With a diverse clientele, we've empowered projects worldwide for over a decade.</p>
+        <div class="stats-grid">
+            <div><div class="stat">50</div><p>Projects Completed</p></div>
+            <div><div class="stat">15</div><p>Years of Experience</p></div>
+            <div><div class="stat">100</div><p>Clients Served</p></div>
+        </div>
+        <h3>The Founder</h3>
+        <p>[Your Founder Name] has over 15 years empowering structures through innovative design and engineering solutions.</p>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="fade-in">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/blueprint.png" alt="Architectural Design Icon">
+                <h3>Architectural Design</h3>
+                <p>Empowering visions with modern design frameworks.</p>
+                <a href="services/architectural-design.html" class="cta-button">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/i-beam.png" alt="Structural Engineering Icon">
+                <h3>Structural Engineering</h3>
+                <p>Robust engineering for lasting structures.</p>
+                <a href="services/structural-engineering.html" class="cta-button">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/residence.png" alt="Interior & Exterior Design Icon">
+                <h3>Interior & Exterior Design</h3>
+                <p>Elevate spaces with innovative aesthetics.</p>
+                <a href="services/interior-exterior-design.html" class="cta-button">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/3d-square.png" alt="3D Rendering & Visualization Icon">
+                <h3>3D Rendering & Visualization</h3>
+                <p>Visualize projects with cutting-edge technology.</p>
+                <a href="services/3d-rendering-visualization.html" class="cta-button">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/calculator.png" alt="Estimation & Consultation Icon">
+                <h3>Estimation & Consultation</h3>
+                <p>Expert guidance for project success.</p>
+                <a href="services/estimation-consultation.html" class="cta-button">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="https://img.icons8.com/ios/50/1e3a8a/gantt-chart.png" alt="Project Management Icon">
+                <h3>Project Management</h3>
+                <p>Seamless execution from concept to completion.</p>
+                <a href="services/project-management.html" class="cta-button">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="fade-in">
+        <h2>Our Projects</h2>
+        <div class="projects-filters">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="residential">Residential</button>
+            <button data-filter="commercial">Commercial</button>
+            <button data-filter="renovation">Renovation</button>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" data-category="residential">
+                <picture>
+                    <source srcset="modern-villa.webp" type="image/webp">
+                    <img src="modern-villa.jpg" alt="Modern Villa Project Image" loading="lazy">
+                </picture>
+                <div class="project-info">
+                    <h3>Modern Villa</h3>
+                    <p class="meta">Dubai, UAE | 2023 | Residential</p>
+                    <p>A luxurious villa blending modern design with sustainable features.</p>
+                    <a href="projects/modern-villa.html" class="cta-button">View Project</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="commercial">
+                <picture>
+                    <source srcset="corporate-tower.webp" type="image/webp">
+                    <img src="corporate-tower.jpg" alt="Corporate Tower Project Image" loading="lazy">
+                </picture>
+                <div class="project-info">
+                    <h3>Corporate Tower</h3>
+                    <p class="meta">London, UK | 2022 | Commercial</p>
+                    <p>A state-of-the-art office space for global businesses.</p>
+                    <a href="projects/corporate-tower.html" class="cta-button">View Project</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="renovation">
+                <picture>
+                    <source srcset="heritage-renovation.webp" type="image/webp">
+                    <img src="heritage-renovation.jpg" alt="Heritage Renovation Project Image" loading="lazy">
+                </picture>
+                <div class="project-info">
+                    <h3>Heritage Renovation</h3>
+                    <p class="meta">Paris, France | 2021 | Renovation</p>
+                    <p>Restoring historic charm with modern functionality.</p>
+                    <a href="projects/heritage-renovation.html" class="cta-button">View Project</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="residential">
+                <picture>
+                    <source srcset="urban-loft.webp" type="image/webp">
+                    <img src="urban-loft.jpg" alt="Urban Loft Project Image" loading="lazy">
+                </picture>
+                <div class="project-info">
+                    <h3>Urban Loft</h3>
+                    <p class="meta">New York, USA | 2024 | Residential</p>
+                    <p>Contemporary loft design emphasizing open spaces and natural light.</p>
+                    <a href="projects/urban-loft.html" class="cta-button">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="fade-in">
+        <h2>Blog / Articles</h2>
+        <p style="max-width: 800px; margin: 0 auto 3rem; color: var(--text-secondary);">Insights into construction trends, innovations, and best practices.</p>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1518629283203-6e38b1e2e949?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80" alt="Sustainable Building Trends Article Image" loading="lazy">
+                <div class="blog-info">
+                    <span class="blog-category">Trends</span>
+                    <h3>Sustainable Building Trends for 2025</h3>
+                    <p>Explore how eco-friendly materials and green certifications are transforming the construction landscape.</p>
+                    <p class="date">October 10, 2025</p>
+                    <a href="#" class="cta-button">Read More</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80" alt="Prefab Innovations Article Image" loading="lazy">
+                <div class="blog-info">
+                    <span class="blog-category">Innovation</span>
+                    <h3>The Rise of Prefabrication in Modern Construction</h3>
+                    <p>Discover how prefab techniques reduce timelines and costs without compromising quality.</p>
+                    <p class="date">September 25, 2025</p>
+                    <a href="#" class="cta-button">Read More</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=200&q=80" alt="Smart Construction Tech Article Image" loading="lazy">
+                <div class="blog-info">
+                    <span class="blog-category">Technology</span>
+                    <h3>Integrating AI and BIM in Project Management</h3>
+                    <p>Learn how smart tech is revolutionizing efficiency on construction sites.</p>
+                    <p class="date">September 15, 2025</p>
+                    <a href="#" class="cta-button">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vision" class="fade-in">
+        <h2>Our Vision</h2>
+        <div class="vision">
+            <p>At Septan Developers, our passion lies in unlocking structural potential through innovative design and engineering. We believe every project has the power to achieve greatness with the right tools and methodologies. By shaping a world of boundless opportunities, we inspire a ripple effect that propels construction forward.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="fade-in">
+        <h2>Client Testimonies</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"Septan's design programs transformed our project with creative engineering."</p>
+                <cite>Terry Bennet, Director, Construction Dept.</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"Over a decade, their engineering has empowered our builds."</p>
+                <cite>Penny Moore, Officer, Local Authority</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"Innovative designs reduced risks and elevated outcomes."</p>
+                <cite>Johnny Tran, Senior Engineer</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"Simple design strategies revolutionized our workflow."</p>
+                <cite>Mahesh Joseph, Entrepreneur</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"They identify design strengths and build upon them."</p>
+                <cite>Richard Izod, Partner</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"High-impact engineering delivery improved all metrics."</p>
+                <cite>Georgia Butters, Coordinator</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-in">
+        <h2>Reach New Heights</h2>
+        <p>Build with us to achieve excellence.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="fade-in">
+        <h2>Contact</h2>
+        <form id="contact-form" class="contact-form" method="POST" action="http://localhost:3000/api/contact">
+            <input type="text" id="name" name="name" placeholder="Name" required aria-describedby="form-message">
+            <input type="email" id="email" name="email" placeholder="Email" required aria-describedby="form-message">
+            <input type="tel" id="phone" name="phone" placeholder="Phone" required aria-describedby="form-message">
+            <textarea id="message" name="message" placeholder="Message" rows="5" required aria-describedby="form-message"></textarea>
+            <input type="hidden" id="csrf_token" name="_csrf" value="">
+            <div id="form-message" class="error-message" role="alert"></div>
+            <div id="form-success" class="success-message" role="alert"></div>
+            <button type="submit" class="cta-button">Send</button>
+        </form>
+        <p class="contact-details" style="margin-top:2rem;">
+            <a href="tel:+94112345678" aria-label="Call Septan Developers at +94 112 345 678" rel="nofollow">+94 112 345 678</a> | 
+            <a href="mailto:contact@septandevelopers.com" aria-label="Email Septan Developers at contact@septandevelopers.com" rel="nofollow">contact@septandevelopers.com</a> | 
+            Anjana, Godagama, Thelwaththa 80242, Sri Lanka
+        </p>
+        <iframe class="contact-map" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.054297328678!2d80.07647481477058!3d6.179291695518374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae183cd06a4f207%3A0xc2e135d975365914!2sSeptan%20Developers%20(Pvt)%20Ltd!5e0!3m2!1sen!2slk!4v1697681234567" 
+                title="Septan Developers office location map" 
+                aria-label="Map showing Septan Developers office at Anjana, Godagama, Thelwaththa 80242, Sri Lanka" 
+                loading="lazy"></iframe>
+        <noscript>
+            <p style="color: var(--error-color); text-align: center; margin-top: 1rem;">
+                JavaScript is required to submit the contact form and view interactive features. 
+                Please enable JavaScript or contact us directly at <a href="mailto:contact@septandevelopers.com" rel="nofollow">contact@septandevelopers.com</a>.
+            </p>
+        </noscript>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Follow us: 
+            <a href="https://facebook.com/SeptanDevelopers" aria-label="Follow Septan Developers on Facebook" rel="noopener noreferrer">Facebook</a> | 
+            <a href="https://instagram.com/septan_developers" aria-label="Follow Septan Developers on Instagram" rel="noopener noreferrer">Instagram</a> | 
+            <a href="https://linkedin.com/company/septan-developers-pvt-ltd" aria-label="Follow Septan Developers on LinkedIn" rel="noopener noreferrer">LinkedIn</a> | 
+            <a href="https://tiktok.com/@septandevelopers" aria-label="Follow Septan Developers on TikTok" rel="noopener noreferrer">TikTok</a> | 
+            <a href="https://youtube.com/@SeptanDevelopers" aria-label="Follow Septan Developers on YouTube" rel="noopener noreferrer">YouTube</a>
+        </p>
+        <p>Quick Links: <a href="#terms">Terms</a> | <a href="#privacy">Privacy</a></p>
+        <p>&copy; 2025 Septan Developers. All rights reserved.</p>
+    </footer>
+
+    <!-- Terms & Privacy (Hidden) -->
+    <section id="terms" class="fade-in" style="display:none;">
+        <h2>Terms and Conditions</h2>
+        <p>[Your Terms and Conditions Content]</p>
+    </section>
+    <section id="privacy" class="fade-in" style="display:none;">
+        <h2>Privacy Policy</h2>
+        <p>[Your Privacy Policy Content]</p>
+    </section>
+
+    <script>
+        // Fetch CSRF Token
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch('http://localhost:3000/api/csrf-token');
+                if (!response.ok) throw new Error('Failed to fetch CSRF token');
+                const data = await response.json();
+                document.getElementById('csrf_token').value = data.csrfToken || '';
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
+                document.getElementById('csrf_token').value = ''; // Fallback to empty token
+                document.getElementById('form-message').textContent = 'Warning: CSRF token fetch failed. Submission may not work without server support.';
+                document.getElementById('form-message').classList.add('active');
+            }
+        }
+        fetchCsrfToken();
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { 
+            e.preventDefault(); 
+            document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); 
+        }));
+        // Fade In
+        const observer = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Hero Slider
+        const slides = document.querySelectorAll('.hero-slide'); 
+        let i = 0;
+        setInterval(() => { 
+            slides[i].classList.remove('active'); 
+            i = (i + 1) % slides.length; 
+            slides[i].classList.add('active'); 
+            slides[i].parentElement.setAttribute('aria-label', slides[i].querySelector('img').alt); 
+        }, 4000);
+        // Projects Filter
+        const filterButtons = document.querySelectorAll('.projects-filters button');
+        const projectCards = document.querySelectorAll('.project-card');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.dataset.filter;
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('#name').value.trim();
+            const email = form.querySelector('#email').value.trim();
+            const phone = form.querySelector('#phone').value.trim();
+            const message = form.querySelector('#message').value.trim();
+            const csrfToken = form.querySelector('#csrf_token').value;
+            const errorMessage = form.querySelector('#form-message');
+            const successMessage = form.querySelector('#form-success');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Reset messages and field states
+            errorMessage.classList.remove('active');
+            successMessage.classList.remove('active');
+            form.querySelectorAll('input, textarea').forEach(field => field.removeAttribute('aria-invalid'));
+
+            // Client-side validation
+            if (!name || !email || !phone || !message) {
+                errorMessage.textContent = 'Please fill in all fields.';
+                errorMessage.classList.add('active');
+                form.querySelectorAll('input:invalid, textarea:invalid').forEach(field => field.setAttribute('aria-invalid', 'true'));
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                errorMessage.classList.add('active');
+                form.querySelector('#email').setAttribute('aria-invalid', 'true');
+                return;
+            }
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+                    body: JSON.stringify({ name, email, phone, message })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+                    successMessage.classList.add('active');
+                    form.reset();
+                    fetchCsrfToken(); // Refresh CSRF token after submission
+                } else {
+                    throw new Error(result.message || 'Submission failed. Please try again.');
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message || 'An error occurred. Please try again later.';
+                errorMessage.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
