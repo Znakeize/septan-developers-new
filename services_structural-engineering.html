@@ -1,0 +1,109 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers Structural Engineering - Robust and safe structural solutions for your projects.">
+    <title>Structural Engineering - Septan Developers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles (same as above) */
+        /* ... (omitted for brevity; copy from architectural-design.html) */
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as above) -->
+    <nav>
+        <!-- ... (omitted; same as above) -->
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a> > <a href="../#services">Services</a> > Structural Engineering
+    </div>
+
+    <!-- Service Hero -->
+    <section class="service-hero" style="background-image: url('https://www.autodesk.com/blogs/construction/wp-content/uploads/2024/07/14-types-of-construction-beams.jpg');">
+        <h1>Structural Engineering</h1>
+    </section>
+
+    <!-- Service Details -->
+    <section class="service-details fade-in">
+        <p>Our Structural Engineering service provides robust, safe, and efficient solutions to ensure your structures stand strong. We use advanced calculations and materials to handle loads, seismic activity, and environmental factors, delivering durable designs that meet all regulatory standards.</p>
+        <p>Services include load analysis, material selection, and integration with architectural plans. We specialize in high-rise buildings, bridges, and renovations, prioritizing safety and longevity.</p>
+        <div class="image-gallery">
+            <img src="https://roarengineering.com/wp-content/uploads/2022/08/What-are-Beams-and-Columns-in-Structural-Engineering-scaled.jpg" alt="Structural beams in construction site" loading="lazy">
+            <img src="https://www.azobuild.com/images/Article_Images/ImageForArticle_8638_16976290889955730.jpg" alt="Structural engineering diagram" loading="lazy">
+        </div>
+        <h3>Related Projects</h3>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://lmnarchitects.com/wp-content/uploads/2022/06/1001-Office-Towers_N201.jpg" alt="Corporate Tower Related Project" loading="lazy">
+                <p>Corporate Tower</p>
+                <a href="../projects/corporate-tower.html" class="cta-button">View Project</a>
+            </div>
+            <div class="related-card">
+                <img src="https://static01.nyt.com/images/2020/06/02/business/02virus-towers-01/02virus-towers-01-videoSixteenByNineJumbo1600.jpg" alt="Heritage Renovation Related Project" loading="lazy">
+                <p>Heritage Renovation</p>
+                <a href="../projects/heritage-renovation.html" class="cta-button">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-in">
+        <h2>Ready to Engineer Your Project?</h2>
+        <a href="../#contact" class="cta-button">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- ... (omitted; same as above) -->
+    </footer>
+
+    <script>
+        // Fade In
+        const observer = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

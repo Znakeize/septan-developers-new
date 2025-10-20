@@ -1,0 +1,180 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers Architectural Design - Innovative designs tailored to your vision.">
+    <title>Architectural Design - Septan Developers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles (repeat from index.html for standalone page) */
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F5F5F5;
+            --text-primary: #1A2526;
+            --text-secondary: #6B7280;
+            --accent-primary: #1E3A8A;
+            --accent-secondary: #2DD4BF;
+            --overlay-dark: rgba(26, 37, 38, 0.6);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1rem 2rem; z-index: 1000; }
+        nav ul { display: flex; justify-content: center; list-style: none; flex-wrap: wrap; }
+        nav ul li { margin: 0 1.5rem; position: relative; }
+        nav ul li a { color: var(--text-primary); text-decoration: none; font-weight: 600; text-transform: uppercase; transition: color 0.3s ease; }
+        nav ul li a:hover { color: var(--accent-secondary); }
+        nav ul li.dropdown > ul { display: none; position: absolute; top: 100%; left: 0; background: var(--bg-primary); box-shadow: 0 4px 8px rgba(0,0,0,0.1); list-style: none; padding: 1rem; z-index: 1000; }
+        nav ul li.dropdown:hover > ul { display: block; }
+        nav ul li.dropdown > ul li { margin: 0.5rem 0; }
+        .breadcrumb { padding: 1rem 2rem; color: var(--text-secondary); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--accent-primary); text-decoration: none; }
+        .service-hero { height: 60vh; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: #FFFFFF; position: relative; }
+        .service-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-dark); }
+        .service-hero h1 { position: relative; font-size: 3rem; font-weight: 700; text-transform: uppercase; }
+        .service-details { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .service-details p { margin-bottom: 1rem; }
+        .image-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .image-gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
+        .related-projects { margin-top: 3rem; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .related-card { background: var(--bg-secondary); padding: 1rem; text-align: center; }
+        .related-card img { width: 100%; height: 150px; object-fit: cover; margin-bottom: 1rem; }
+        .cta-section { background: var(--bg-secondary); padding: 3rem; text-align: center; }
+        footer { background: var(--text-primary); color: #FFFFFF; padding: 2rem; text-align: center; }
+        footer a { color: var(--accent-secondary); text-decoration: none; }
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .service-hero h1 { font-size: 2rem; }
+            .image-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index) -->
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../#about">About</a></li>
+            <li class="dropdown">
+                <a href="../#services">Services</a>
+                <ul>
+                    <li><a href="architectural-design.html">Architectural Design</a></li>
+                    <li><a href="structural-engineering.html">Structural Engineering</a></li>
+                    <li><a href="interior-exterior-design.html">Interior & Exterior Design</a></li>
+                    <li><a href="3d-rendering-visualization.html">3D Rendering & Visualization</a></li>
+                    <li><a href="estimation-consultation.html">Estimation & Consultation</a></li>
+                    <li><a href="project-management.html">Project Management</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="../#projects">Projects</a>
+                <ul>
+                    <li><a href="../projects/modern-villa.html">Modern Villa</a></li>
+                    <li><a href="../projects/corporate-tower.html">Corporate Tower</a></li>
+                    <li><a href="../projects/heritage-renovation.html">Heritage Renovation</a></li>
+                    <li><a href="../projects/urban-loft.html">Urban Loft</a></li>
+                </ul>
+            </li>
+            <li><a href="../#blog">Blog</a></li>
+            <li><a href="../#vision">Vision</a></li>
+            <li><a href="../#testimonials">Testimonials</a></li>
+            <li><a href="../#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a> > <a href="../#services">Services</a> > Architectural Design
+    </div>
+
+    <!-- Service Hero -->
+    <section class="service-hero" style="background-image: url('https://images.ctfassets.net/3s5io6mnxfqz/ZUy2482tZGGGIpKmsRCSs/e6a845956da8a899458337beeaa079d0/AdobeStock_281558291.jpeg?w=1920');">
+        <h1>Architectural Design</h1>
+    </section>
+
+    <!-- Service Details -->
+    <section class="service-details fade-in">
+        <p>Our Architectural Design service focuses on creating innovative, functional, and aesthetically pleasing structures that meet your unique needs. We combine modern techniques with timeless principles to deliver designs that stand the test of time. From concept to final blueprints, our team ensures every detail is optimized for sustainability, efficiency, and beauty.</p>
+        <p>Key features include custom floor plans, 3D modeling for visualization, and integration of green building practices. Whether it's residential, commercial, or renovation projects, we tailor our approach to bring your vision to life.</p>
+        <div class="image-gallery">
+            <img src="https://damassets.autodesk.net/content/dam/autodesk/www/solutions/generative-design/fy22/images/architectural-rendering-set-new/what-is-architectural-rendering-thumb-1172x660.jpg" alt="Architectural design render example" loading="lazy">
+            <img src="https://www.autodesk.com/blogs/construction/wp-content/uploads/2024/07/14-types-of-construction-beams.jpg" alt="Structural beam in architectural design" loading="lazy">
+        </div>
+        <h3>Related Projects</h3>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://modernvillasco.com/wp-content/uploads/2024/05/Villa-construction-13.jpg" alt="Modern Villa Related Project" loading="lazy">
+                <p>Modern Villa</p>
+                <a href="../projects/modern-villa.html" class="cta-button">View Project</a>
+            </div>
+            <div class="related-card">
+                <img src="https://avantecture.com/wp-content/uploads/2019/12/luxusvilla-am-fluss.jpg" alt="Urban Loft Related Project" loading="lazy">
+                <p>Urban Loft</p>
+                <a href="../projects/urban-loft.html" class="cta-button">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-in">
+        <h2>Ready to Design Your Project?</h2>
+        <a href="../#contact" class="cta-button">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Follow us: <a href="[Your Facebook Link]">Facebook</a> | <a href="[Your Instagram Link]">Instagram</a> | <a href="[Your LinkedIn Link]">LinkedIn</a></p>
+        <p>Quick Links: <a href="../#terms">Terms</a> | <a href="../#privacy">Privacy</a></p>
+        <p>&copy; 2025 Septan Developers. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Fade In
+        const observer = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

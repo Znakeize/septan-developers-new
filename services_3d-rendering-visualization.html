@@ -1,0 +1,109 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers 3D Rendering & Visualization - Visualize your project with cutting-edge technology.">
+    <title>3D Rendering & Visualization - Septan Developers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles (same as above) */
+        /* ... (omitted) */
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <!-- ... (omitted) -->
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a> > <a href="../#services">Services</a> > 3D Rendering & Visualization
+    </div>
+
+    <!-- Service Hero -->
+    <section class="service-hero" style="background-image: url('https://images.ctfassets.net/3s5io6mnxfqz/ZUy2482tZGGGIpKmsRCSs/e6a845956da8a899458337beeaa079d0/AdobeStock_281558291.jpeg?w=1920');">
+        <h1>3D Rendering & Visualization</h1>
+    </section>
+
+    <!-- Service Details -->
+    <section class="service-details fade-in">
+        <p>Our 3D Rendering & Visualization service brings your ideas to life with high-fidelity 3D models and renders. Using advanced software, we create realistic visualizations that help you see the final product before construction begins, aiding in decision-making and client presentations.</p>
+        <p>We offer photorealistic renders, virtual tours, and interactive models for all project types, ensuring accuracy and detail in every aspect.</p>
+        <div class="image-gallery">
+            <img src="https://damassets.autodesk.net/content/dam/autodesk/www/solutions/generative-design/fy22/images/architectural-rendering-set-new/what-is-architectural-rendering-thumb-1172x660.jpg" alt="3D rendering example" loading="lazy">
+            <img src="https://www.autodesk.com/blogs/construction/wp-content/uploads/2024/07/14-types-of-construction-beams.jpg" alt="Visualization of structural design" loading="lazy">
+        </div>
+        <h3>Related Projects</h3>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://lmnarchitects.com/wp-content/uploads/2022/06/1001-Office-Towers_N201.jpg" alt="Corporate Tower Related Project" loading="lazy">
+                <p>Corporate Tower</p>
+                <a href="../projects/corporate-tower.html" class="cta-button">View Project</a>
+            </div>
+            <div class="related-card">
+                <img src="https://static01.nyt.com/images/2020/06/02/business/02virus-towers-01/02virus-towers-01-videoSixteenByNineJumbo1600.jpg" alt="Modern Villa Related Project" loading="lazy">
+                <p>Modern Villa</p>
+                <a href="../projects/modern-villa.html" class="cta-button">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-in">
+        <h2>Ready to Visualize Your Project?</h2>
+        <a href="../#contact" class="cta-button">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- ... (omitted) -->
+    </footer>
+
+    <script>
+        // Fade In
+        const observer = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

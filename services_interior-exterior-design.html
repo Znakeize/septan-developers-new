@@ -1,0 +1,109 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers Interior & Exterior Design - Stunning aesthetics for functional spaces.">
+    <title>Interior & Exterior Design - Septan Developers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles (same as above) */
+        /* ... (omitted) */
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <!-- ... (omitted) -->
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a> > <a href="../#services">Services</a> > Interior & Exterior Design
+    </div>
+
+    <!-- Service Hero -->
+    <section class="service-hero" style="background-image: url('https://www.extraspace.com/wp-content/uploads/2021/02/2021-home-design-trends.jpg');">
+        <h1>Interior & Exterior Design</h1>
+    </section>
+
+    <!-- Service Details -->
+    <section class="service-details fade-in">
+        <p>Our Interior & Exterior Design service creates beautiful, functional spaces that enhance user experience and property value. We blend aesthetics with practicality, using high-quality materials and innovative layouts to transform interiors and exteriors.</p>
+        <p>From color schemes and furniture selection to landscaping and facade upgrades, our designs are tailored to your style and budget, ensuring timeless appeal and comfort.</p>
+        <div class="image-gallery">
+            <img src="https://cdn.home-designing.com/wp-content/uploads/2011/06/outdoor-indoor-living-space.jpg" alt="Modern interior design example" loading="lazy">
+            <img src="https://www.extraspace.com/wp-content/uploads/2021/02/2021-home-design-trends.jpg" alt="Exterior design renovation" loading="lazy">
+        </div>
+        <h3>Related Projects</h3>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://decormatters-blog-uploads.s3.amazonaws.com/120374351_351707619406024_2148080828846791076_n_7497707dbc.jpg" alt="Urban Loft Related Project" loading="lazy">
+                <p>Urban Loft</p>
+                <a href="../projects/urban-loft.html" class="cta-button">View Project</a>
+            </div>
+            <div class="related-card">
+                <img src="https://images.pexels.com/photos/20337840/pexels-photo-20337840.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Modern Villa Related Project" loading="lazy">
+                <p>Modern Villa</p>
+                <a href="../projects/modern-villa.html" class="cta-button">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section fade-in">
+        <h2>Ready to Design Your Space?</h2>
+        <a href="../#contact" class="cta-button">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- ... (omitted) -->
+    </footer>
+
+    <script>
+        // Fade In
+        const observer = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
