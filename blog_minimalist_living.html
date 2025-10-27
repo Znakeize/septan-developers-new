@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rise of Minimalist Living - Septan Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #dc2626;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .blog-hero {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 2rem;
+            max-width: 900px;
+        }
+
+        .blog-category {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            font-size: 1rem;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.9rem;
+            color: #999;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-meta i {
+            color: #dc2626;
+        }
+
+        .blog-content {
+            padding: 100px 20px;
+            background: #111;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 60px;
+            border: 1px solid #222;
+        }
+
+        .blog-content h2 {
+            font-size: 2.5rem;
+            margin: 50px 0 30px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .blog-content h3 {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .blog-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .blog-content ul {
+            margin: 30px 0;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .blog-content li strong {
+            color: #dc2626;
+        }
+
+        .quote-box {
+            background: rgba(220, 38, 38, 0.05);
+            border-left: 5px solid #dc2626;
+            padding: 40px;
+            margin: 50px 0;
+            font-style: italic;
+        }
+
+        .quote-box p {
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .tags-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+        }
+
+        .tags-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            padding: 8px 20px;
+            border: 1px solid #dc2626;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .author-box {
+            background: #000;
+            border: 1px solid #222;
+            padding: 40px;
+            margin-top: 60px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            background: #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .author-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .related-posts {
+            padding: 100px 20px;
+            background: #000;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h2.section-title span {
+            color: #dc2626;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .post-card {
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            padding: 30px;
+        }
+
+        .post-category {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .post-date {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        section {
+            padding: 100px 20px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 20px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background: #dc2626;
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: #fff;
+            color: #dc2626;
+        }
+
+        .contact-info-section {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        .contact-info-section h3 {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info-item i {
+            color: #dc2626;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .contact-info-item div {
+            flex: 1;
+        }
+
+        .contact-info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .contact-info-item p {
+            color: #999;
+            margin: 0;
+        }
+
+        #form-success {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        #form-success.active {
+            display: block;
+        }
+
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.98);
+                padding: 2rem;
+                gap: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-container, .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SEPTAN</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="blog-hero" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');">
+        <div class="blog-hero-content">
+            <div class="blog-category">Residential</div>
+            <h1>The Rise of Minimalist Living</h1>
+            <div class="blog-meta">
+                <span><i class="fas fa-calendar"></i> October 5, 2025</span>
+                <span><i class="fas fa-user"></i> Septan Team</span>
+                <span><i class="fas fa-clock"></i> 9 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content">
+        <div class="content-container">
+            <div class="featured-image" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');"></div>
+
+            <p>Minimalism in residential architecture has evolved from a niche aesthetic to a dominant design philosophy across Sri Lanka and beyond. This shift reflects deeper cultural changes—a reaction against consumerism, a desire for tranquility, and an embrace of intentional living.</p>
+
+            <p>At Septan Developers, we've witnessed this transformation firsthand. Our minimalist projects consistently generate the most interest and satisfaction from clients seeking clarity, calm, and connection in their living spaces.</p>
+
+            <h2>Understanding Minimalism</h2>
+
+            <p>Minimalism is often misunderstood as simply removing decoration or choosing neutral colors. True minimalist design is far more sophisticated—it's about creating spaces that enhance life by eliminating the superfluous.</p>
+
+            <quote-box class="quote-box">
+                <p>"Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away." - Antoine de Saint-Exupéry</p>
+            </quote-box>
+
+            <p>Every element in a minimalist space serves a purpose, whether functional or experiential. This intentionality creates environments that feel simultaneously spacious and intimate, simple yet rich.</p>
+
+            <h2>Core Principles of Minimalist Design</h2>
+
+            <h3>1. Essential Form</h3>
+
+            <p>Minimalist architecture embraces clean lines and pure geometric forms. Unnecessary ornamentation gives way to the honest expression of structure and materials.</p>
+
+            <ul>
+                <li><strong>Geometric Clarity:</strong> Rectangular volumes, clean edges, and precise angles create visual order and calm.</li>
+                <li><strong>Honest Materials:</strong> Concrete, wood, glass, and steel are celebrated for their inherent qualities rather than disguised.</li>
+                <li><strong>Structural Expression:</strong> The building's structure becomes an aesthetic element rather than something to be hidden.</li>
+            </ul>
+
+            <h3>2. Light and Space</h3>
+
+            <p>In minimalist design, light becomes a material as important as concrete or wood. Carefully controlled natural light animates spaces throughout the day, creating drama through subtlety.</p>
+
+            <ul>
+                <li><strong>Strategic Openings:</strong> Windows are positioned to frame specific views and admit light at particular angles.</li>
+                <li><strong>Light as Texture:</strong> Shadows and light patterns across plain surfaces create ever-changing visual interest.</li>
+                <li><strong>Spatial Flow:</strong> Open plans and minimal partitions allow light to penetrate deep into buildings.</li>
+            </ul>
+
+            <h3>3. Material Restraint</h3>
+
+            <p>Minimalist projects typically employ a limited material palette, allowing each material to make a strong statement. This restraint creates cohesion and emphasizes quality over quantity.</p>
+
+            <ul>
+                <li><strong>Limited Palette:</strong> Typically three to five materials maximum throughout the entire project.</li>
+                <li><strong>Natural Finishes:</strong> Materials shown in their natural state rather than painted or extensively treated.</li>
+                <li><strong>Honest Details:</strong> Joints, connections, and transitions are expressed clearly rather than concealed.</li>
+            </ul>
+
+            <h3>4. Indoor-Outdoor Connection</h3>
+
+            <p>Minimalist design often blurs boundaries between interior and exterior spaces. This connection to nature and landscape is particularly effective in Sri Lanka's tropical climate.</p>
+
+            <ul>
+                <li><strong>Large Openings:</strong> Floor-to-ceiling glass doors that slide away completely, merging inside and outside.</li>
+                <li><strong>Continuity of Materials:</strong> Flooring materials that extend from interior to exterior reinforce spatial connection.</li>
+                <li><strong>Framed Views:</strong> Strategic openings that frame landscape as living art.</li>
+            </ul>
+
+            <h2>Benefits of Minimalist Living</h2>
+
+            <h3>Psychological Wellbeing</h3>
+
+            <p>Research consistently shows that cluttered, complex environments increase stress and cognitive load. Minimalist spaces reduce mental noise, promoting calm and focus.</p>
+
+            <p>Our clients report sleeping better, feeling more relaxed, and experiencing greater mental clarity in minimalist environments. The simplicity creates psychological space as tangible as physical space.</p>
+
+            <h3>Financial Efficiency</h3>
+
+            <p>While minimalist design requires skilled execution, it can be more cost-effective than ornate alternatives. Simplified forms reduce construction complexity, and quality takes precedence over quantity.</p>
+
+            <p>The focused material palette often means better quality materials at similar overall costs. Maintenance is typically simpler and less expensive over time.</p>
+
+            <h3>Environmental Sustainability</h3>
+
+            <p>Minimalism aligns naturally with sustainability. Building less, choosing durable materials, and emphasizing passive design strategies all reduce environmental impact.</p>
+
+            <ul>
+                <li><strong>Reduced Material Consumption:</strong> Simpler forms use less material overall.</li>
+                <li><strong>Longevity:</strong> Timeless design doesn't need renovation to stay current.</li>
+                <li><strong>Energy Efficiency:</strong> Passive strategies like natural ventilation and shading are core minimalist elements.</li>
+            </ul>
+
+            <h2>Minimalism in Sri Lankan Context</h2>
+
+            <p>Minimalist design adapts beautifully to Sri Lanka's tropical climate and cultural context. Traditional Sri Lankan architecture already embodied many minimalist principles—open plans, connection to landscape, and material honesty.</p>
+
+            <h3>Climate Responsiveness</h3>
+
+            <p>Our minimalist projects maximize natural ventilation through strategic openings and open plans. Deep overhangs provide shade while maintaining clean lines. The result is buildings that stay comfortable naturally, reducing air conditioning needs dramatically.</p>
+
+            <h3>Cultural Integration</h3>
+
+            <p>We incorporate traditional elements like courtyards and verandas in contemporary minimalist expressions. This creates homes that feel both modern and rooted in local context.</p>
+
+            <h3>Local Materials</h3>
+
+            <p>Sri Lankan granite, laterite stone, and locally sourced timber feature prominently in our minimalist projects. These materials connect buildings to place while supporting local economy.</p>
+
+            <h2>Case Study: Linear House at Battaramulla</h2>
+
+            <p>The Linear House exemplifies minimalist principles adapted to tropical Sri Lanka. The design centers on a linear layout with a central courtyard, allowing cross-ventilation while maintaining privacy.</p>
+
+            <p>Large glass walls slide away completely, merging living spaces with outdoor areas. A limited palette of concrete, wood, and glass creates visual calm. Strategic overhangs provide shade while maintaining clean geometric forms.</p>
+
+            <p>The courtyard becomes the heart of the home—an outdoor room that brings light, air, and nature into the center of daily life. Water features add cooling and ambient sound, enhancing the serene atmosphere.</p>
+
+            <h2>Designing Minimalist Interiors</h2>
+
+            <p>Interior design in minimalist homes extends architectural principles to furnishings and finishes. The goal is creating environments that support life without dominating it.</p>
+
+            <h3>Furniture Selection</h3>
+
+            <p>Choose fewer pieces of higher quality. Each furniture item should earn its place through function, comfort, or beauty—ideally all three. Built-in storage keeps clutter hidden while maintaining clean lines.</p>
+
+            <h3>Color Palette</h3>
+
+            <p>Neutral bases allow materials and textures to create visual interest. This doesn't mean everything must be white—warm grays, beiges, and earth tones create depth while maintaining calm.</p>
+
+            <h3>Lighting Design</h3>
+
+            <p>Lighting in minimalist spaces is typically recessed or concealed, creating ambiance without visual clutter. Natural light is the primary source, with artificial lighting carefully layered to enhance rather than overpower.</p>
+
+            <h2>Common Misconceptions</h2>
+
+            <h3>"Minimalism is Cold"</h3>
+
+            <p>This myth persists but is easily disproven. Natural materials like wood add warmth. Textile choices like linen and wool provide softness. The spaciousness actually allows warmth from these elements to register more strongly.</p>
+
+            <h3>"Minimalism is Impractical"</h3>
+
+            <p>Actually, minimalist design often proves more practical than complex alternatives. Built-in storage keeps necessities organized and accessible. Durable materials require less maintenance. Simple forms are easier to clean.</p>
+
+            <h3>"Minimalism is Expensive"</h3>
+
+            <p>While quality materials and skilled execution aren't cheap, minimalism can be more cost-effective than ornate alternatives. Simplified forms reduce construction complexity, and focused spending on fewer, better elements often costs less than buying many lower-quality items.</p>
+
+            <h2>Implementing Minimalism</h2>
+
+            <p>Transitioning to minimalist living requires intention but doesn't need to be extreme. Start by identifying what truly adds value to your life. Remove or store items that don't serve clear purposes.</p>
+
+            <p>In new construction or renovation, work with architects experienced in minimalist design. The simplicity is deceptive—achieving it requires sophisticated understanding of proportion, light, and materials.</p>
+
+            <h2>Future of Minimalist Design</h2>
+
+            <p>Minimalism continues evolving. Current trends include:</p>
+
+            <ul>
+                <li><strong>Warmer Minimalism:</strong> Integration of natural textures and organic elements softens earlier austere interpretations.</li>
+                <li><strong>Smart Integration:</strong> Technology seamlessly embedded without visible complexity.</li>
+                <li><strong>Flexible Spaces:</strong> Multi-functional rooms that adapt to changing needs while maintaining visual simplicity.</li>
+                <li><strong>Biophilic Elements:</strong> Intentional incorporation of nature—living walls, water features, natural materials.</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+
+            <p>The rise of minimalist living reflects broader cultural shifts toward intentionality and sustainability. In an increasingly complex world, homes that offer clarity and calm become essential sanctuaries.</p>
+
+            <p>At Septan Developers, we're committed to creating minimalist spaces that enhance life through thoughtful reduction rather than simple elimination. Each project balances restraint with warmth, simplicity with richness, achieving the essential goal of minimalist design—creating more by building less.</p>
+
+            <div class="tags-section">
+                <h3>Tags</h3>
+                <div class="tags">
+                    <span class="tag">Minimalism</span>
+                    <span class="tag">Residential Design</span>
+                    <span class="tag">Architecture</span>
+                    <span class="tag">Interior Design</span>
+                    <span class="tag">Lifestyle</span>
+                    <span class="tag">Simplicity</span>
+                </div>
+            </div>
+
+            <div class="author-box">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Septan Development Team</h4>
+                    <p>Our team has extensive experience creating minimalist residential spaces that balance aesthetic sophistication with practical livability. We believe the best homes support life without overwhelming it.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-posts">
+        <div class="section-container">
+            <h2 class="section-title">RELATED <span>ARTICLES</span></h2>
+            <div class="posts-grid">
+                <a href="blog_sustainable_design.html" class="post-card">
+                    <div class="post-image" style="background-image: url('https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg');"></div>
+                    <div class="post-content">
+                        <div class="post-category">Sustainability</div>
+                        <h3>Sustainable Design Trends 2025</h3>
+                        <div class="post-date">October 15, 2025</div>
+                    </div>
+                </a>
+                <a href="blog_office_spaces.html" class="post-card">
+                    <div class="post-image" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');"></div>
+                    <div class="post-content">
+                        <div class="post-category">Commercial</div>
+                        <h3>Designing Modern Office Spaces</h3>
+                        <div class="post-date">October 10, 2025</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: #111;">
+        <div class="section-container">
+            <h2 class="section-title">GET IN <span>TOUCH</span></h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" name="phone" placeholder="Your Phone" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                    <div id="form-success"></div>
+                </form>
+                <div class="contact-info-section">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Office Address</strong>
+                            <p>Septan Developers (Pvt) Ltd<br>Ambalangoda, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+94 76 3132675</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>septandevelopers@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://tiktok.com/@septandevelopers" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const successMessage = document.getElementById('form-success');
+
+            successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            successMessage.classList.add('active');
+            form.reset();
+        });
+    </script>
+</body>
+</html>

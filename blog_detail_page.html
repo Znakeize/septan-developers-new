@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Septan Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #dc2626;
+        }
+
+        .breadcrumb {
+            background: #111;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #222;
+            margin-top: 70px;
+        }
+
+        .breadcrumb-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #dc2626;
+        }
+
+        .breadcrumb span {
+            color: #666;
+        }
+
+        .article-header {
+            max-width: 900px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: #dc2626;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            color: #999;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: #dc2626;
+        }
+
+        .featured-image {
+            width: 100%;
+            max-width: 1200px;
+            height: 500px;
+            margin: 0 auto 4rem;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+        }
+
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .article-content p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content h2 {
+            font-size: 2.2rem;
+            margin: 2.5rem 0 1.5rem;
+            color: #dc2626;
+        }
+
+        .article-content h3 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: #fff;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .article-content li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #dc2626;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: #111;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #ccc;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .tag {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .author-section {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #dc2626;
+        }
+
+        .author-info p {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .related-posts {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .related-posts h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #dc2626;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-category {
+            color: #dc2626;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .post-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2.2rem;
+            }
+
+            .featured-image {
+                height: 300px;
+            }
+
+            .author-section {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">SEPTAN</a>
+            <ul>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#blog">Blog</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href="/#blog">Blog</a>
+            <span>/</span>
+            <span id="breadcrumbPost">Post Title</span>
+        </div>
+    </div>
+
+    <article>
+        <header class="article-header">
+            <div class="article-category" id="postCategory">Loading...</div>
+            <h1 class="article-title" id="postTitle">Loading...</h1>
+            <div class="article-meta" id="postMeta">
+                <!-- Meta will be loaded -->
+            </div>
+        </header>
+
+        <div class="featured-image" id="featuredImage"></div>
+
+        <div class="article-content" id="articleContent">
+            <p>Loading article content...</p>
+        </div>
+
+        <div class="article-content">
+            <div class="article-tags" id="articleTags">
+                <!-- Tags will be loaded -->
+            </div>
+
+            <div class="author-section">
+                <div class="author-avatar" id="authorAvatar">AD</div>
+                <div class="author-info">
+                    <h3 id="authorName">Author Name</h3>
+                    <p id="authorBio">Expert in construction design and architecture with over 10 years of experience in sustainable building practices.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <section class="related-posts">
+        <h2>Related Articles</h2>
+        <div class="posts-grid" id="relatedPosts">
+            <!-- Related posts will be loaded -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        const urlParams = new URLSearchParams(window.location.search);
+        const postSlug = urlParams.get('post') || window.location.pathname.split('/').pop().replace('.html', '');
+
+        const blogData = {
+            'sustainable-design-trends-2025': {
+                title: 'Sustainable Design Trends 2025',
+                category: 'Sustainability',
+                author_name: 'Dilan Fernando',
+                published_at: '2024-10-15',
+                read_time_minutes: 8,
+                featured_image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1200',
+                excerpt: 'Explore the latest trends in sustainable architecture shaping the future of eco-friendly construction.',
+                content: `
+                    <p>As we move into 2025, sustainable design is no longer just a trend—it's becoming the standard for responsible construction. The architecture and construction industry is experiencing a fundamental shift toward environmentally conscious practices that balance human needs with ecological preservation.</p>
+
+                    <h2>The Rise of Biophilic Design</h2>
+                    <p>Biophilic design, which incorporates natural elements into built environments, is gaining unprecedented momentum. This approach goes beyond adding a few plants to a space—it's about creating deep, meaningful connections between occupants and nature.</p>
+                    
+                    <p>Modern biophilic designs integrate living walls, natural light optimization, water features, and organic materials to create spaces that improve mental health, productivity, and overall well-being. Studies have shown that buildings incorporating biophilic elements can reduce stress levels by up to 15% and increase productivity by 6%.</p>
+
+                    <h2>Net-Zero Energy Buildings</h2>
+                    <p>The push toward net-zero energy buildings is accelerating. These structures produce as much energy as they consume through a combination of energy-efficient design, renewable energy generation, and smart building systems.</p>
+
+                    <blockquote>"The buildings we design today will either contribute to climate change or help solve it. Net-zero design is our responsibility to future generations." - Sustainable Architecture Forum 2024</blockquote>
+
+                    <p>Key technologies enabling net-zero buildings include:</p>
+                    <ul>
+                        <li>Advanced solar panels with higher efficiency ratings</li>
+                        <li>Geothermal heating and cooling systems</li>
+                        <li>Smart energy management systems powered by AI</li>
+                        <li>High-performance building envelopes that minimize heat loss</li>
+                        <li>Energy storage solutions for consistent power availability</li>
+                    </ul>
+
+                    <h2>Circular Economy in Construction</h2>
+                    <p>The concept of a circular economy is revolutionizing how we think about building materials. Instead of the traditional linear model of "take, make, dispose," circular design focuses on reducing waste, reusing materials, and regenerating natural systems.</p>
+
+                    <p>This approach includes designing for disassembly, using recycled and recyclable materials, and creating material passports that track the lifecycle and composition of building components. By 2025, we're seeing increased adoption of:</p>
+
+                    <ul>
+                        <li>Reclaimed wood and salvaged materials</li>
+                        <li>Recycled steel and aluminum</li>
+                        <li>Bio-based insulation materials</li>
+                        <li>Modular construction systems that can be easily reconfigured</li>
+                        <li>Low-carbon concrete alternatives</li>
+                    </ul>
+
+                    <h3>Smart Water Management</h3>
+                    <p>Water scarcity is becoming an increasingly critical issue globally. Sustainable buildings in 2025 are incorporating sophisticated water management systems that capture, treat, and reuse water on-site.</p>
+
+                    <p>Rainwater harvesting systems, greywater recycling, and permeable paving are becoming standard features. Advanced filtration systems allow buildings to treat and reuse up to 75% of their water, dramatically reducing demand on municipal systems.</p>
+
+                    <h2>Local and Natural Materials</h2>
+                    <p>There's a renewed appreciation for locally sourced, natural materials. This trend reduces transportation emissions, supports local economies, and often results in buildings that are better adapted to their climate and cultural context.</p>
+
+                    <p>Materials like bamboo, rammed earth, cross-laminated timber (CLT), and hempcrete are gaining popularity. These materials often have lower embodied carbon than conventional options and can sequester carbon dioxide over their lifetime.</p>
+
+                    <h3>Technology Integration</h3>
+                    <p>Smart building technologies are making sustainable design more effective and user-friendly. IoT sensors monitor energy usage, air quality, and occupancy patterns in real-time, allowing buildings to automatically optimize their performance.</p>
+
+                    <p>Building Information Modeling (BIM) enhanced with AI enables designers to simulate and optimize building performance before construction begins, identifying opportunities for energy savings and improved sustainability.</p>
+
+                    <h2>The Path Forward</h2>
+                    <p>As we look to the future, sustainable design is evolving from a niche specialty to the fundamental basis of all good architecture. The trends emerging in 2025 represent not just changes in how we build, but a shift in how we think about our relationship with the built environment.</p>
+
+                    <p>At Septan Developers, we're committed to leading this transformation. Our projects integrate these sustainable principles from conception through completion, creating buildings that are not only environmentally responsible but also beautiful, functional, and economically viable.</p>
+
+                    <p>The future of architecture is sustainable, and that future is now.</p>
+                `,
+                tags: ['Sustainable Design', 'Green Building', 'Net-Zero', 'Biophilic Design', 'Circular Economy', 'Architecture Trends']
+            }
+        };
+
+        function loadBlogPost() {
+            const data = blogData[postSlug];
+            
+            if (!data) {
+                console.error('Blog post not found');
+                return;
+            }
+
+            // Update header
+            document.getElementById('postCategory').textContent = data.category;
+            document.getElementById('postTitle').textContent = data.title;
+            document.getElementById('breadcrumbPost').textContent = data.title;
+            document.title = `${data.title} - Septan Developers Blog`;
+
+            // Update meta
+            const metaHTML = `
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>${data.author_name}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${new Date(data.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>${data.read_time_minutes} min read</span>
+                </div>
+            `;
+            document.getElementById('postMeta').innerHTML = metaHTML;
+
+            // Update featured image
+            document.getElementById('featuredImage').style.backgroundImage = `url('${data.featured_image}')`;
+
+            // Update content
+            document.getElementById('articleContent').innerHTML = data.content;
+
+            // Update author
+            const initials = data.author_name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('authorAvatar').textContent = initials;
+            document.getElementById('authorName').textContent = data.author_name;
+
+            // Update tags
+            if (data.tags && data.tags.length > 0) {
+                const tagsHTML = data.tags.map(tag => `<a href="#" class="tag">#${tag}</a>`).join('');
+                document.getElementById('articleTags').innerHTML = tagsHTML;
+            }
+
+            // Load related posts
+            loadRelatedPosts(data.category);
+        }
+
+        function loadRelatedPosts(category) {
+            const related = [
+                {
+                    title: 'Designing Modern Office Spaces',
+                    category: 'Commercial',
+                    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
+                    date: '2024-10-10',
+                    href: 'blog_office_spaces.html'
+                },
+                {
+                    title: 'The Rise of Minimalist Living',
+                    category: 'Residential',
+                    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+                    date: '2024-10-05',
+                    href: 'blog_minimalist_living.html'
+                },
+                {
+                    title: 'Sustainable Design Trends 2025',
+                    category: 'Sustainability',
+                    image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800',
+                    date: '2024-10-15',
+                    href: 'blog_sustainable_design.html'
+                }
+            ];
+
+            const relatedHTML = related.map(post => {
+                const cardInner = `
+                    <div class="post-image" style="background-image: url('${post.image}')"></div>
+                    <div class="post-content">
+                        <div class="post-category">${post.category}</div>
+                        <h3 class="post-title">${post.title}</h3>
+                        <div class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                    </div>
+                `;
+                return post.href
+                    ? `<a class="post-card" href="${post.href}">${cardInner}</a>`
+                    : `<div class="post-card">${cardInner}</div>`;
+            }).join('');
+            
+            document.getElementById('relatedPosts').innerHTML = relatedHTML;
+        }
+
+        // Initialize
+        loadBlogPost();
+
+        // Track page view
+        fetch(`${API_URL}/analytics/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event_type: 'blog_view',
+                page_url: window.location.href,
+                reference_type: 'blog',
+                reference_id: postSlug
+            })
+        }).catch(err => console.log('Analytics tracking failed'));
+    </script>
+</body>
+</html>

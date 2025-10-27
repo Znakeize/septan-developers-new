@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing Modern Office Spaces - Septan Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #dc2626;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .blog-hero {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .blog-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 2rem;
+            max-width: 900px;
+        }
+
+        .blog-category {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            font-size: 1rem;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.9rem;
+            color: #999;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-meta i {
+            color: #dc2626;
+        }
+
+        .blog-content {
+            padding: 100px 20px;
+            background: #111;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 60px;
+            border: 1px solid #222;
+        }
+
+        .blog-content h2 {
+            font-size: 2.5rem;
+            margin: 50px 0 30px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .blog-content h3 {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .blog-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .blog-content ul {
+            margin: 30px 0;
+            padding-left: 40px;
+        }
+
+        .blog-content li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .blog-content li strong {
+            color: #dc2626;
+        }
+
+        .quote-box {
+            background: rgba(220, 38, 38, 0.05);
+            border-left: 5px solid #dc2626;
+            padding: 40px;
+            margin: 50px 0;
+            font-style: italic;
+        }
+
+        .quote-box p {
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .tags-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+        }
+
+        .tags-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tag {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            padding: 8px 20px;
+            border: 1px solid #dc2626;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .author-box {
+            background: #000;
+            border: 1px solid #222;
+            padding: 40px;
+            margin-top: 60px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            background: #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .author-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .related-posts {
+            padding: 100px 20px;
+            background: #000;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h2.section-title span {
+            color: #dc2626;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .post-card {
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .post-card:hover .post-image {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            padding: 30px;
+        }
+
+        .post-category {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .post-date {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        section {
+            padding: 100px 20px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 20px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background: #dc2626;
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: #fff;
+            color: #dc2626;
+        }
+
+        .contact-info-section {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        .contact-info-section h3 {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info-item i {
+            color: #dc2626;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .contact-info-item div {
+            flex: 1;
+        }
+
+        .contact-info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .contact-info-item p {
+            color: #999;
+            margin: 0;
+        }
+
+        #form-message, #form-success {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #form-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        #form-success.active {
+            display: block;
+        }
+
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.98);
+                padding: 2rem;
+                gap: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-container, .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">SEPTAN</a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="blog-hero" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');">
+        <div class="blog-hero-content">
+            <div class="blog-category">Commercial</div>
+            <h1>Designing Modern Office Spaces</h1>
+            <div class="blog-meta">
+                <span><i class="fas fa-calendar"></i> October 10, 2025</span>
+                <span><i class="fas fa-user"></i> Septan Team</span>
+                <span><i class="fas fa-clock"></i> 7 min read</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-content">
+        <div class="content-container">
+            <div class="featured-image" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');"></div>
+
+            <p>The workplace has transformed dramatically in recent years. The pandemic accelerated trends that were already emerging, fundamentally reshaping how we think about office design. Today's successful office spaces balance productivity, collaboration, wellbeing, and flexibility in ways that would have seemed radical just a decade ago.</p>
+
+            <p>At Septan Developers, we've been at the forefront of this revolution, creating commercial spaces that inspire innovation while supporting employee health and satisfaction. This article explores the key principles and trends defining modern office design in 2025.</p>
+
+            <h2>The Evolution of Workspace Design</h2>
+
+            <p>The traditional office with rows of cubicles and private corner offices has given way to diverse, adaptable environments. This shift reflects deeper changes in how we work, communicate, and define professional success.</p>
+
+            <p>Modern offices recognize that different tasks require different settings. Deep focus work, collaborative brainstorming, video conferencing, and casual conversations each benefit from specifically designed spaces. The most effective offices provide a menu of options rather than a one-size-fits-all solution.</p>
+
+            <h2>Key Design Principles</h2>
+
+            <h3>1. Activity-Based Working</h3>
+
+            <p>Activity-based working (ABW) gives employees choice over where and how they work based on the task at hand. This approach requires diverse space types thoughtfully distributed throughout the office.</p>
+
+            <ul>
+                <li><strong>Focus Zones:</strong> Quiet areas with acoustic treatment, minimal distractions, and comfortable individual workstations for concentrated work.</li>
+                <li><strong>Collaboration Hubs:</strong> Open areas with flexible furniture, writable walls, and AV equipment for team projects and brainstorming.</li>
+                <li><strong>Social Spaces:</strong> Casual lounges and cafes that encourage informal interaction and relationship building.</li>
+                <li><strong>Technology-Enabled Meeting Rooms:</strong> Spaces equipped for hybrid meetings that seamlessly connect remote and in-office participants.</li>
+            </ul>
+
+            <h3>2. Biophilic Design</h3>
+
+            <p>Incorporating nature into workspaces isn't just aesthetic—it's proven to reduce stress, improve cognitive function, and boost creativity. Our projects extensively integrate biophilic elements.</p>
+
+            <quote-box class="quote-box">
+                <p>"Employees in offices with natural elements report 15% higher wellbeing scores and 6% higher productivity." - Human Spaces Research</p>
+            </quote-box>
+
+            <ul>
+                <li><strong>Living Walls:</strong> Vertical gardens that purify air while creating striking visual features.</li>
+                <li><strong>Natural Light:</strong> Maximizing daylight through strategic window placement and interior glazing reduces eye strain and regulates circadian rhythms.</li>
+                <li><strong>Natural Materials:</strong> Wood, stone, and organic textiles create warmth and connection to nature.</li>
+                <li><strong>Views and Vistas:</strong> Designing sightlines to outdoor spaces brings the outside in, even for interior zones.</li>
+            </ul>
+
+            <h3>3. Flexibility and Adaptability</h3>
+
+            <p>The future is uncertain, and offices must adapt quickly to changing needs. Flexible design accommodates growth, reorganization, and evolving work patterns.</p>
+
+            <ul>
+                <li><strong>Modular Furniture:</strong> Reconfigurable systems that support multiple layouts without major construction.</li>
+                <li><strong>Movable Walls:</strong> Partitions that allow spaces to expand, contract, or subdivide as needed.</li>
+                <li><strong>Raised Flooring:</strong> Infrastructure that enables easy technology updates and space reconfigurations.</li>
+                <li><strong>Multi-Purpose Spaces:</strong> Areas designed to serve multiple functions throughout the day.</li>
+            </ul>
+
+            <h3>4. Wellness-Centric Design</h3>
+
+            <p>Employee wellbeing is increasingly recognized as essential to organizational success. Wellness-focused design goes beyond ergonomic chairs to create environments that support physical and mental health.</p>
+
+            <ul>
+                <li><strong>Air Quality:</strong> Advanced HVAC systems with HEPA filtration and continuous fresh air introduction.</li>
+                <li><strong>Acoustic Comfort:</strong> Sound masking systems, acoustic panels, and strategic zoning minimize disruptive noise.</li>
+                <li><strong>Ergonomic Options:</strong> Sit-stand desks, multiple seating types, and proper monitor positioning reduce physical strain.</li>
+                <li><strong>Wellness Amenities:</strong> Fitness facilities, meditation rooms, and outdoor spaces support holistic health.</li>
+            </ul>
+
+            <h2>Technology Integration</h2>
+
+            <p>Modern offices are increasingly intelligent, using technology to enhance user experience and operational efficiency. Smart building systems learn from usage patterns and optimize accordingly.</p>
+
+            <h3>Smart Room Booking</h3>
+
+            <p>Automated systems show real-time space availability, enable instant reservations, and even suggest optimal locations based on meeting participants and required resources.</p>
+
+            <h3>Environmental Control</h3>
+
+            <p>Individual climate control, automated lighting that adjusts to natural light levels, and air quality monitoring create optimal conditions while reducing energy waste.</p>
+
+            <h3>Hybrid Work Support</h3>
+
+            <p>Advanced AV systems, virtual whiteboards, and seamless screen sharing ensure remote participants are fully integrated into meetings and collaborative sessions.</p>
+
+            <h2>Sustainability Considerations</h2>
+
+            <p>Commercial buildings account for significant energy consumption and carbon emissions. Sustainable office design isn't optional—it's essential.</p>
+
+            <ul>
+                <li><strong>Energy Efficiency:</strong> LED lighting, high-performance glazing, and optimized HVAC systems dramatically reduce operational energy use.</li>
+                <li><strong>Sustainable Materials:</strong> Low-VOC finishes, recycled content materials, and locally sourced products minimize environmental impact.</li>
+                <li><strong>Water Conservation:</strong> Low-flow fixtures and greywater systems reduce consumption by up to 40%.</li>
+                <li><strong>Waste Reduction:</strong> Comprehensive recycling programs and durable, maintainable materials extend lifecycle.</li>
+            </ul>
+
+            <h2>Cultural Expression</h2>
+
+            <p>Offices increasingly serve as physical expressions of company culture and values. Thoughtful design communicates brand identity and reinforces organizational priorities.</p>
+
+            <p>This might include showcasing company history through curated displays, incorporating brand colors and materials in subtle ways, or creating signature spaces that become synonymous with the organization's identity.</p>
+
+            <h2>Case Study: Jungle Office Complex</h2>
+
+            <p>Our Jungle Office Complex project exemplifies these principles in action. Located in Galle, this sustainable office seamlessly integrates with its natural surroundings while providing cutting-edge workspace functionality.</p>
+
+            <p>The building features extensive green roofs that reduce heat island effect and provide outdoor working areas. Large operable windows enable natural ventilation, reducing air conditioning needs by 60%. Rainwater harvesting systems supply all non-potable water needs.</p>
+
+            <p>Inside, diverse work settings cater to different tasks and work styles. From quiet focus pods to collaborative workshops, employees can choose environments that support their current activities. Natural materials and living walls throughout create warmth and connection to the surrounding jungle landscape.</p>
+
+            <h2>Future Trends</h2>
+
+            <p>Looking ahead, several emerging trends will shape office design in coming years:</p>
+
+            <ul>
+                <li><strong>Extreme Flexibility:</strong> Offices designed for complete reconfiguration on demand, adapting daily to changing needs.</li>
+                <li><strong>Hyper-Personalization:</strong> AI-driven systems that learn individual preferences and automatically adjust lighting, temperature, and even desk height.</li>
+                <li><strong>Wellness Technology:</strong> Circadian lighting systems, air purification, and acoustic optimization that actively support health.</li>
+                <li><strong>Experience-Driven Design:</strong> Offices as destinations that offer compelling reasons to leave home, focusing on experiences impossible to replicate remotely.</li>
+            </ul>
+
+            <h2>Conclusion</h2>
+
+            <p>Modern office design is about creating environments where people thrive. The most successful spaces balance practical functionality with inspiration, efficiency with wellbeing, and flexibility with identity.</p>
+
+            <p>As work continues evolving, so too must our workplaces. At Septan Developers, we're committed to creating offices that not only meet today's needs but anticipate tomorrow's possibilities.</p>
+
+            <div class="tags-section">
+                <h3>Tags</h3>
+                <div class="tags">
+                    <span class="tag">Commercial Design</span>
+                    <span class="tag">Office Space</span>
+                    <span class="tag">Workplace</span>
+                    <span class="tag">Interior Design</span>
+                    <span class="tag">Wellness</span>
+                    <span class="tag">Productivity</span>
+                </div>
+            </div>
+
+            <div class="author-box">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Septan Development Team</h4>
+                    <p>Our team specializes in creating innovative commercial spaces that balance functionality, aesthetics, and employee wellbeing. With extensive experience across diverse industries and regions, we bring proven expertise to every project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-posts">
+        <div class="section-container">
+            <h2 class="section-title">RELATED <span>ARTICLES</span></h2>
+            <div class="posts-grid">
+                <a href="blog_sustainable_design.html" class="post-card">
+                    <div class="post-image" style="background-image: url('https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg');"></div>
+                    <div class="post-content">
+                        <div class="post-category">Sustainability</div>
+                        <h3>Sustainable Design Trends 2025</h3>
+                        <div class="post-date">October 15, 2025</div>
+                    </div>
+                </a>
+                <a href="blog_minimalist_living.html" class="post-card">
+                    <div class="post-image" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');"></div>
+                    <div class="post-content">
+                        <div class="post-category">Residential</div>
+                        <h3>The Rise of Minimalist Living</h3>
+                        <div class="post-date">October 5, 2025</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: #111;">
+        <div class="section-container">
+            <h2 class="section-title">GET IN <span>TOUCH</span></h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" name="phone" placeholder="Your Phone" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                    <div id="form-success"></div>
+                </form>
+                <div class="contact-info-section">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Office Address</strong>
+                            <p>Septan Developers (Pvt) Ltd<br>Ambalangoda, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+94 76 3132675</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>septandevelopers@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://tiktok.com/@septandevelopers" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const successMessage = document.getElementById('form-success');
+
+            successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            successMessage.classList.add('active');
+            form.reset();
+        });
+    </script>
+</body>
+</html>

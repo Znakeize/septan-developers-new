@@ -1,0 +1,2354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Septan Developers - Expert construction design, consultation, and engineering services. Build your vision with innovative solutions.">
+    <meta name="keywords" content="construction design, architectural design, structural engineering, building information modleing, interior design, 3D rendering, Septan Developers, Sri Lanka">
+    <title>Septan Developers - Build Your Vision</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #dc2626;
+        }
+
+        nav ul li.dropdown > ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.98);
+            padding: 1rem;
+            min-width: 200px;
+            border: 1px solid #333;
+            margin-top: 0.5rem;
+        }
+
+        nav ul li.dropdown:hover > ul {
+            display: block;
+        }
+
+        nav ul li.dropdown > ul li {
+            margin: 0.5rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-slides {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .scroll-text {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            opacity: 0.2;
+            z-index: 2;
+        }
+
+        .scroll-text.top {
+            top: 20%;
+            animation: scrollRight 25s linear infinite;
+        }
+
+        .scroll-text.bottom {
+            bottom: 20%;
+            animation: scrollLeft 25s linear infinite;
+        }
+
+        @keyframes scrollRight {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        @keyframes scrollLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: #999;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero-tagline {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.7s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #7f1d1d, #dc2626);
+            color: #fff;
+            padding: 1rem 2.2rem;
+            border: 1px solid rgba(220, 38, 38, 0.5);
+            border-radius: 9999px;
+            text-transform: uppercase;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 2px;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(220, 38, 38, 0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(220, 38, 38, 0.35);
+            border-color: rgba(239, 68, 68, 0.7);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        section.dark {
+            background: #000;
+        }
+
+        section.light {
+            background: #111;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        h2 span {
+            color: #dc2626;
+        }
+
+        /* About Section */
+        .about-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        /* Stats Section with Animations */
+        .stats-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media(min-width: 900px) {
+            .stats-wrapper {
+                flex-direction: row;
+                justify-content: center;
+                align-items: stretch;
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 12px 34px rgba(0,0,0,0.6), inset 0 -6px 18px rgba(0,0,0,0.22);
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.2, 1);
+            border: 1px solid rgba(220, 38, 38, 0.1);
+        }
+
+        .stat-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 56px rgba(220, 38, 38, 0.3);
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+
+        .icon-wrap {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        /* Cube Animation */
+        .cube-scene {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .cube-holder {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+            animation: rotateCube 9s linear infinite, cubeZoom 6s ease-in-out infinite;
+        }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(-16deg) rotateY(0deg); }
+            100% { transform: rotateX(-16deg) rotateY(360deg); }
+        }
+
+        @keyframes cubeZoom {
+            0%, 100% { transform: scale(0.98); }
+            75% { transform: scale(2.0); }
+        }
+
+        .cubelet {
+            --size: 40px;
+            width: var(--size);
+            height: var(--size);
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(230,230,230,0.95));
+            box-shadow: 0 3px 8px rgba(0,0,0,0.45), inset 0 -2px 6px rgba(0,0,0,0.06);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-style: preserve-3d;
+            border-radius: 3px;
+            animation: explodeAnim 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes explodeAnim {
+            0% { transform: translate3d(var(--tx), var(--ty), var(--tz)) scale(1); opacity: 1; }
+            100% { transform: translate3d(calc(var(--tx) * 1.8), calc(var(--ty) * 1.8), calc(var(--tz) * 1.8)) scale(0.88); opacity: 0.96; }
+        }
+
+        /* World Map Animation */
+        .map-wrap {
+            width: 320px;
+            max-width: 100%;
+            height: 150px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg') center/contain no-repeat;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+            position: relative;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #ffbebe 70%);
+            box-shadow: 0 6px 18px rgba(255,70,70,0.2), 0 0 10px rgba(255,50,50,0.06);
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: none;
+            opacity: 0.95;
+            animation: blink 1.6s infinite ease-in-out;
+        }
+
+        @keyframes blink {
+            0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.18; }
+            45% { transform: translate(-50%, -50%) scale(1.18); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.22; }
+        }
+
+        /* Handshake Animation */
+        .handshake-scene {
+            width: 500px;
+            height: 300px;
+        }
+
+        .person {
+            fill: rgba(255,255,255,0.92);
+        }
+
+        .arm {
+            transform-origin: 100% 100%;
+            transform-box: fill-box;
+        }
+
+        @keyframes armShake {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(-12deg); }
+            40% { transform: rotate(8deg); }
+            60% { transform: rotate(-6deg); }
+            80% { transform: rotate(4deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .arm-right {
+            animation: armShake 1.6s ease-in-out infinite;
+            transform-origin: 78% 48%;
+        }
+
+        .arm-left {
+            animation: armShake 1.6s ease-in-out infinite reverse;
+            transform-origin: 23% 48%;
+        }
+
+        .stat-number {
+            color: #dc2626;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .stat-label {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .small-note {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Vision Mission */
+        .vision-mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .vm-card {
+            background: rgba(220, 38, 38, 0.05);
+            padding: 50px;
+            border-left: 5px solid #dc2626;
+            transition: all 0.3s ease;
+        }
+
+        .vm-card:hover {
+            background: rgba(220, 38, 38, 0.1);
+            transform: translateX(10px);
+        }
+
+        .vm-card h3 {
+            font-size: 2.5rem;
+            color: #dc2626;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .vm-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: #111;
+            padding: 40px;
+            border: 1px solid #222;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card[data-href] { cursor: pointer; }
+
+        .service-card .cta-button.small {
+            align-self: center;
+            margin-top: auto !important;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+ /* Architectural Design Animation */
+         .house-scene{ width:340px; height:260px; }
+  .house-base{ fill:none; stroke:rgba(255,255,255,0.92); stroke-width:4; stroke-dasharray:800; stroke-dashoffset:800; animation: drawHouse 3.5s ease-in-out infinite; }
+  .house-detail{ fill: url(#windowGradient); filter: url(#shadow); opacity:0; animation: showDetail 3.5s ease-in-out infinite 1.5s; }
+  .house-roof{ fill: url(#roofTexture); opacity:0; animation: showDetail 3.5s ease-in-out infinite 1.5s; }
+  .house-glow{ fill:none; stroke: url(#glowGradient); stroke-width:2; opacity:0; animation: glowHouse 3.5s ease-in-out infinite 2.5s; }
+  @keyframes drawHouse {
+    0% { stroke-dashoffset: 800; opacity: 0.2; }
+    50% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes showDetail {
+    0% { opacity: 0; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes glowHouse {
+    0% { opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.7; }
+  }
+
+        /* Structural Design Animation */
+          .structure-scene{ width:340px; height:260px; }
+  .rebar-highrise{ fill:none; stroke:rgba(255,75,75,0.96); stroke-width:4; stroke-dasharray:180; stroke-dashoffset:180; opacity:0; animation: drawRebar 4s ease-in-out infinite 0s; }
+  .rebar-midrise{ fill:none; stroke:rgba(255,75,75,0.96); stroke-width:3; stroke-dasharray:150; stroke-dashoffset:150; opacity:0; animation: drawRebar 4s ease-in-out infinite 1s; }
+  .rebar-lowrise{ fill:none; stroke:rgba(255,75,75,0.96); stroke-width:3; stroke-dasharray:150; stroke-dashoffset:150; opacity:0; animation: drawRebar 4s ease-in-out infinite 1.2s; }
+  .rebar-diagonal{ fill:none; stroke:rgba(255,75,75,0.96); stroke-width:3; stroke-dasharray:150; stroke-dashoffset:150; opacity:0; animation: drawRebar 4s ease-in-out infinite 0s; }
+  .concrete-highrise{ fill: url(#concreteTexture); opacity:0; animation: fillConcrete 4s ease-in-out infinite 2s; }
+  .concrete-midrise{ fill: url(#concreteTexture); opacity:0; animation: fillConcrete 4s ease-in-out infinite 2s; }
+  .concrete-lowrise{ fill: url(#concreteTexture); opacity:0; animation: fillConcrete 4s ease-in-out infinite 2s; }
+  .force-arrow{ fill: url(#glowGradient); filter: url(#shadow); opacity:0; animation: showForce 4s ease-in-out infinite 3s; }
+  .ground-plane{ fill: url(#groundGradient); opacity:0; animation: showGround 4s ease-in-out infinite 3s; }
+  .ground-texture{ fill: url(#groundTexture); opacity:0; animation: showGround 4s ease-in-out infinite 3s; }
+  @keyframes drawRebar {
+    0% { stroke-dashoffset: 180; opacity: 0; }
+    25% { stroke-dashoffset: 0; opacity: 1; }
+    50% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes fillConcrete {
+    0% { opacity: 0; transform: scaleY(0.8); }
+    50% { opacity: 0.92; transform: scaleY(1); }
+    100% { opacity: 0.92; transform: scaleY(1); }
+  }
+  @keyframes showForce {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes showGround {
+    0% { opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.5; }
+  }
+
+ 	/* Building Information Modeling Animation */
+        .bim-scene{ width:340px; height:260px; }
+  .bim-grid{ fill:none; stroke:rgba(255,75,75,0.96); stroke-width:2; stroke-dasharray:150; stroke-dashoffset:150; opacity:0; animation: drawGrid 4.5s ease-in-out infinite 0s; }
+  .bim-foundation{ fill: url(#concreteTexture); filter: url(#shadow); opacity:0; animation: showFoundation 4.5s ease-in-out infinite 1s; }
+  .bim-floor{ fill: url(#renderTexture); filter: url(#shadow); opacity:0; animation: showFloor 4.5s ease-in-out infinite; }
+  .bim-floor-1{ animation-delay: 1.5s; }
+  .bim-floor-2{ animation-delay: 1.8s; }
+  .bim-floor-3{ animation-delay: 2.1s; }
+  .bim-window{ fill: url(#windowGradient); filter: url(#shadow); opacity:0; animation: showFloor 4.5s ease-in-out infinite; }
+  .bim-window-1{ animation-delay: 1.5s; }
+  .bim-window-2{ animation-delay: 1.8s; }
+  .bim-window-3{ animation-delay: 2.1s; }
+  .bim-pipe{ fill:none; stroke-width:3; stroke-dasharray:100; stroke-dashoffset:100; opacity:0; animation: drawPipe 4.5s ease-in-out infinite; }
+  .bim-pipe-red{ stroke: url(#pipeGradientRed); animation-delay: 2.5s; }
+  .bim-pipe-blue{ stroke: url(#pipeGradientBlue); animation-delay: 2.7s; }
+  .bim-pipe-yellow{ stroke: url(#pipeGradientYellow); animation-delay: 2.9s; }
+  .bim-data{ fill: url(#dataTexture); filter: url(#shadow); opacity:0; animation: showData 4.5s ease-in-out infinite 3.5s; }
+  .bim-data-node{ fill: url(#glowGradient); filter: url(#shadow); opacity:0; animation: pulseNode 4.5s ease-in-out infinite 3.5s; }
+  .bim-data-connector{ fill:none; stroke: url(#glowGradient); stroke-width:1; stroke-dasharray:20; stroke-dashoffset:20; opacity:0; animation: drawConnector 4.5s ease-in-out infinite 3.5s; }
+  .bim-data-label{ fill:rgba(255,255,255,0.92); opacity:0; animation: showData 4.5s ease-in-out infinite 3.5s; }
+  .bim-timeline{ fill: url(#timelineGradient); filter: url(#shadow); opacity:0; animation: showData 4.5s ease-in-out infinite 1s; }
+  .bim-timeline-progress{ fill: url(#glowGradient); opacity:0; animation: moveProgress 4.5s ease-in-out infinite 1s; }
+  .bim-marker{ fill: url(#glowGradient); filter: url(#shadow); opacity:0; animation: pulseMarker 4.5s ease-in-out infinite; }
+  .bim-marker-1{ animation-delay: 1.5s; }
+  .bim-marker-2{ animation-delay: 2.5s; }
+  .bim-marker-3{ animation-delay: 2.7s; }
+  .bim-marker-4{ animation-delay: 3.5s; }
+  .bim-glow{ fill:none; stroke: url(#glowGradient); stroke-width:2; opacity:0; animation: glowBIM 4.5s ease-in-out infinite 4s; }
+  @keyframes drawGrid {
+    0% { stroke-dashoffset: 150; opacity: 0; }
+    25% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes showFoundation {
+    0% { opacity: 0; transform: scaleY(0.8); }
+    50% { opacity: 0.92; transform: scaleY(1); }
+    100% { opacity: 0.92; transform: scaleY(1); }
+  }
+  @keyframes showFloor {
+    0% { opacity: 0; transform: scaleY(0.8); }
+    50% { opacity: 0.92; transform: scaleY(1); }
+    100% { opacity: 0.92; transform: scaleY(1); }
+  }
+  @keyframes drawPipe {
+    0% { stroke-dashoffset: 100; opacity: 0; }
+    50% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes showData {
+    0% { opacity: 0; transform: scale(0.95); }
+    50% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 0.8; transform: scale(1); }
+  }
+  @keyframes pulseNode {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
+    75% { opacity: 0.8; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes drawConnector {
+    0% { stroke-dashoffset: 20; opacity: 0; }
+    50% { stroke-dashoffset: 0; opacity: 0.8; }
+    100% { stroke-dashoffset: 0; opacity: 0.8; }
+  }
+  @keyframes moveProgress {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { transform: translateX(200px); opacity: 0.9; }
+    100% { transform: translateX(200px); opacity: 0; }
+  }
+  @keyframes pulseMarker {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes glowBIM {
+    0% { opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.7; }
+        }
+
+        /* Interior Design Animation */
+        .interior-scene{ width:340px; height:260px; }
+  .interior-wall{ fill: url(#wallTexture); opacity:0; animation: showRug 4s ease-in-out infinite 3s; }
+  .interior-floor{ fill: url(#floorTexture); opacity:0; animation: showRug 4s ease-in-out infinite 3s; }
+  .interior-sofa{ fill: url(#sofaTexture); filter: url(#shadow); opacity:0; animation: arrangeInterior 4s ease-in-out infinite 0s; }
+  .interior-detail{ fill: url(#windowGradient); filter: url(#shadow); opacity:0; animation: arrangeInterior 4s ease-in-out infinite 1s; }
+  .interior-rug{ fill: url(#rugTexture); opacity:0; animation: showRug 4s ease-in-out infinite 3s; }
+  .interior-art{ fill: url(#windowGradient); filter: url(#shadow); opacity:0; animation: showRug 4s ease-in-out infinite 3s; }
+  .pendant-light{ fill: url(#lampGradient); filter: url(#shadow); opacity:0; animation: pulseLamp 4s ease-in-out infinite 2s; }
+  .floor-lamp{ fill: url(#lampGradient); filter: url(#shadow); opacity:0; animation: pulseLamp 4s ease-in-out infinite 2s; }
+  @keyframes arrangeInterior {
+    0% { opacity: 0; transform: translateX(-20px) scale(0.95); }
+    50% { opacity: 1; transform: translateX(0) scale(1); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes showRug {
+    0% { opacity: 0; transform: scale(0.95); }
+    50% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 0.8; transform: scale(1); }
+  }
+  @keyframes pulseLamp {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
+    75% { opacity: 0.8; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+
+        /* 3D Rendering Animation */
+       .render-scene{ width:340px; height:260px; transform-style:preserve-3d; }
+  .render-wire{ fill:none; stroke:rgba(255,255,255,0.92); stroke-width:3; stroke-dasharray:120; stroke-dashoffset:120; animation: drawWire 4s ease-in-out infinite; }
+  .render-solid{ fill: url(#renderTexture); opacity:0; animation: fillRender 4s ease-in-out infinite 1.5s; }
+  .render-glow{ fill:none; stroke: url(#renderGlow); stroke-width:2; opacity:0; animation: glowRender 4s ease-in-out infinite 2.5s; }
+  @keyframes drawWire {
+    0% { stroke-dashoffset: 120; opacity: 0; transform: rotateY(0deg); }
+    50% { stroke-dashoffset: 0; opacity: 1; transform: rotateY(180deg); }
+    100% { stroke-dashoffset: 0; opacity: 1; transform: rotateY(360deg); }
+  }
+  @keyframes fillRender {
+    0% { opacity: 0; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes glowRender {
+    0% { opacity: 0; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.7; }
+  }
+
+
+        /* Estimation Animation */
+        .estimation-scene { width: 280px; height: 200px; }
+        .calc-icon { fill: rgba(255,255,255,0.92); opacity: 0.3; }
+        .cost-bar { fill: url(#barGradient); filter: url(#shadow); transform-origin: bottom; }
+        .cost-bar-1 { animation: growCost 2s ease-in-out infinite 0s; }
+        .cost-bar-2 { animation: growCost 2s ease-in-out infinite 0.2s; }
+        .cost-bar-3 { animation: growCost 2s ease-in-out infinite 0.4s; }
+
+        @keyframes growCost {
+            0% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+            100% { transform: scaleY(0.3); }
+        }
+
+        /* Project Management Animation */
+        .gantt-scene { width: 280px; height: 200px; }
+        .task-bar { fill: rgba(255,255,255,0.92); transform-origin: left; }
+        .task-check { fill: none; stroke: url(#checkGradient); stroke-width: 4; stroke-dasharray: 30; stroke-dashoffset: 30; animation: drawCheck 3s ease-in-out infinite 1s; }
+        .task-bar-1 { animation: slideTask 3s ease-in-out infinite 0s; }
+        .task-bar-2 { animation: slideTask 3s ease-in-out infinite 0.5s; }
+
+        @keyframes slideTask {
+            0% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+            100% { transform: scaleX(1); }
+        }
+        @keyframes drawCheck {
+            0% { stroke-dashoffset: 30; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #dc2626;
+            text-align: center;
+        }
+
+        .service-card p {
+            color: #999;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* Projects Section */
+        .projects-filters {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .projects-filters button {
+            background: transparent;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            padding: 0.8rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .projects-filters button:hover,
+        .projects-filters button.active {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .project-card.active {
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .project-content p {
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* Project card CTA refinement */
+        .project-content .cta-button {
+            padding: 0.75rem 1.6rem;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            margin-top: 8px;
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.22);
+        }
+        .project-content .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(220, 38, 38, 0.32);
+        }
+
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(220, 38, 38, 0.2);
+            transform: scale(1.1) translateY(-5px);
+            animation: none;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #dc2626;
+        }
+
+        .service-card p {
+            color: #999;
+            line-height: 1.8;
+        }
+
+        /* Projects Section */
+        .projects-filters {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .projects-filters button {
+            background: transparent;
+            border: 2px solid #dc2626;
+            color: #dc2626;
+            padding: 0.8rem 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .projects-filters button:hover,
+        .projects-filters button.active {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .project-card.active {
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #dc2626;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .project-content p {
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: #111;
+            padding: 40px;
+            border: 1px solid #222;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .stars {
+            margin-bottom: 20px;
+        }
+
+        .stars i {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin: 0 3px;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .testimonial-author {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #dc2626;
+        }
+
+        .testimonial-position {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .blog-card {
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 30px;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .blog-category {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            color: #999;
+            line-height: 1.8;
+        }
+
+        .blog-link {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .blog-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-link {
+            color: #fff;
+        }
+
+        .blog-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 20px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background: #dc2626;
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: #fff;
+            color: #dc2626;
+        }
+
+        .contact-info-section {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        .contact-info-section h3 {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info-item i {
+            color: #dc2626;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .contact-info-item div {
+            flex: 1;
+        }
+
+        .contact-info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .contact-info-item p {
+            color: #999;
+            margin: 0;
+        }
+
+        .map-container-contact {
+            width: 100%;
+            height: 400px;
+            margin-top: 40px;
+            border: 1px solid #222;
+            overflow: hidden;
+        }
+
+        .map-container-contact iframe {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%) invert(90%);
+        }
+
+        #form-message, #form-success {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #form-message {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+
+        #form-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        #form-message.active, #form-success.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.98);
+                padding: 2rem;
+                gap: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .vision-mission-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .projects-grid,
+            .blog-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-filters button {
+                margin: 0.25rem;
+                padding: 0.6rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">SEPTAN</div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li class="dropdown">
+                    <a href="#services">Services</a>
+                    <ul>
+                        <li><a href="architectural-design.html">Architectural Design</a></li>
+                        <li><a href="structural-design.html">Structural Design</a></li>
+			            <li><a href="bim-page.html">Building Information Modeling (BIM)</a></li>
+                        <li><a href="interior-design.html">Interior Design</a></li>
+                        <li><a href="3d-rendering.html">3D Rendering</a></li>
+                        <li><a href="estimation-page.html">Estimation & Consultation</a></li>
+                        <li><a href="project-management.html">Project Management</a></li>
+                    </ul>
+                </li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-slides">
+            <div class="hero-slide active" style="background-image: url('https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('https://blog.architizer.com/wp-content/uploads/sri-lanka.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('https://trendslk.com/wp-content/uploads/2024/04/Eco-Friendly-House-Designs-in-Sri-Lanka-4.jpg');"></div>
+        </div>
+        <div class="scroll-text top">ARCHITECTURAL DESIGN • STRUCTURAL ENGINEERING • BUILDING INFORMATION MODELING (BIM) • INTERIOR DESIGN • 3D VISUALIZATION • PROJECT MANAGEMENT</div>
+        <div class="hero-content">
+            <div class="hero-subtitle">EXPERT CONSTRUCTION DESIGN & ENGINEERING</div>
+            <h1>BUILD YOUR VISION</h1>
+            <div class="hero-tagline">INNOVATIVE • SUSTAINABLE • TIMELESS</div>
+            <a href="#contact" class="cta-button">Request a Quote</a>
+        </div>
+        <div class="scroll-text bottom">CONSTRUCTION CONSULTATION • ESTIMATION SERVICES • BUILDING DESIGN • ECO-FRIENDLY SOLUTIONS</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="dark">
+        <div class="section-container">
+            <h2>ABOUT <span>SEPTAN DEVELOPERS</span></h2>
+            <div class="about-content">
+                <p>Founded in 2020, we blend modern architecture with natural elements to create innovative spaces. We've completed over 300 projects, focusing on sustainability and client satisfaction.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section with Animated Icons -->
+    <section class="light">
+        <div class="section-container">
+            <h2>OUR <span>ACHIEVEMENTS</span></h2>
+            <div class="stats-wrapper">
+                <!-- Years Card with Cube Animation -->
+                <div class="stat-card" id="card-years">
+                    <div class="icon-wrap">
+                        <div class="cube-scene" id="cubeScene">
+                            <div class="cube-holder" id="cubeHolder"></div>
+                        </div>
+                    </div>
+                    <div class="stat-number" data-target="5" id="years-number">0</div>
+                    <div class="stat-label">Years in Business</div>
+                </div>
+
+                <!-- Projects Card with World Map Animation -->
+                <div class="stat-card" id="card-projects">
+                    <div class="icon-wrap">
+                        <div class="map-wrap" id="mapWrap">
+                            <div class="map-container" id="mapContainer"></div>
+                        </div>
+                    </div>
+                    <div class="stat-number" data-target="300" id="projects-number">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                    <div class="small-note">* 35+ Countries in All Around the World</div>
+                </div>
+
+                <!-- Clients Card with Handshake Animation -->
+                <div class="stat-card" id="card-clients">
+                    <div class="icon-wrap">
+                        <svg class="handshake-scene" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,10)">
+                                <g class="person" transform="translate(0,0)">
+                                    <circle cx="60" cy="38" r="12" fill="rgba(255,255,255,0.94)"/>
+                                    <rect x="44" y="56" width="32" height="36" rx="6" ry="6" fill="rgba(255,255,255,0.92)"/>
+                                    <g class="arm arm-left" transform="translate(0,0)">
+                                        <rect x="54" y="70" width="40" height="10" rx="4" ry="4" fill="rgba(255,255,255,0.95)"/>
+                                        <rect x="90" y="68" width="12" height="10" rx="3" ry="3" fill="rgba(255,75,75,0.96)"/>
+                                    </g>
+                                    <circle cx="140" cy="34" r="12" fill="rgba(255,255,255,0.94)"/>
+                                    <rect x="124" y="56" width="32" height="36" rx="6" ry="6" fill="rgba(255,255,255,0.92)"/>
+                                    <g class="arm arm-right" transform="translate(0,0)">
+                                        <rect x="106" y="70" width="44" height="10" rx="4" ry="4" fill="rgba(255,255,255,0.95)"/>
+                                        <rect x="98" y="68" width="12" height="10" rx="3" ry="3" fill="rgba(255,75,75,0.96)"/>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="stat-number" data-target="135" id="projects-number">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                    <div class="small-note">* 100% satisfaction rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Mission Section -->
+    <section class="dark">
+        <div class="section-container">
+            <h2>VISION & <span>MISSION</span></h2>
+            <div class="vision-mission-grid">
+                <div class="vm-card">
+                    <h3>Vision</h3>
+                    <p>To pioneer a global standard in sustainable construction, leading Sri Lanka's architectural landscape with groundbreaking innovations that set benchmarks for environmental stewardship, community enrichment, and timeless design excellence.</p>
+                </div>
+                <div class="vm-card">
+                    <h3>Mission</h3>
+                    <p>To provide exceptional architectural and engineering services, prioritizing client satisfaction, environmental responsibility, and cutting-edge technology to create timeless structures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="light">
+        <div class="section-container">
+            <h2>OUR <span>SERVICES</span></h2>
+            <div class="services-grid">
+                <div class="service-card" data-href="architectural-design.html">
+                    <div class="icon-wrap">
+                    <svg class="house-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+                     <defs>
+                 <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="33%" style="stop-color:rgba(255,75,75,0.8);stop-opacity:0.9" />
+              <stop offset="66%" style="stop-color:rgba(255,75,75,0.6);stop-opacity:0.7" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.92);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.7);stop-opacity:0.9" />
+            </linearGradient>
+            <pattern id="roofTexture" patternUnits="userSpaceOnUse" width="10" height="10">
+              <rect x="0" y="0" width="5" height="5" fill="rgba(255,75,75,0.2)" />
+              <rect x="5" y="5" width="5" height="5" fill="rgba(255,75,75,0.15)" />
+            </pattern>
+            <pattern id="brickTexture" patternUnits="userSpaceOnUse" width="10" height="5">
+              <rect x="0" y="0" width="10" height="2" fill="rgba(255,255,255,0.1)" />
+              <rect x="5" y="2" width="5" height="2" fill="rgba(255,255,255,0.1)" />
+            </pattern>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+            </filter>
+          </defs>
+          <path class="house-base" d="M100 100 H300 V250 H100 Z M100 100 L200 50 L300 100" />
+          <path class="house-roof" d="M100 100 L200 50 L300 100 V120 H100 Z" />
+          <rect class="house-detail" x="260" y="70" width="20" height="30" fill="url(#brickTexture)" />
+          <rect class="house-detail" x="120" y="140" width="30" height="40" rx="2" />
+          <rect class="house-detail" x="155" y="140" width="30" height="40" rx="2" />
+          <rect class="house-detail" x="215" y="140" width="30" height="40" rx="2" />
+          <rect class="house-detail" x="170" y="190" width="40" height="60" rx="4" />
+          <rect class="house-detail" x="180" y="200" width="20" height="20" rx="2" />
+          <path class="house-detail" d="M140 220 V250 M160 220 V250 M180 220 V250" />
+          <path class="house-detail" d="M80 180 C90 150 110 150 120 180 C110 210 90 210 80 180 V250" />
+          <path class="house-glow" d="M100 100 H300 V250 H100 Z M100 100 L200 50 L300 100" />
+        </svg>
+      </div>
+                    <h3>Architectural Design</h3>
+                    <p>Striking facades integrating stone, wood, and metal with nature. We create innovative designs that blend modern aesthetics with environmental harmony.</p>
+                    
+                </div>
+                <div class="service-card" data-href="structural-design.html">
+                    <div class="icon-wrap">
+        <svg class="structure-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="33%" style="stop-color:rgba(255,75,75,0.8);stop-opacity:0.9" />
+              <stop offset="66%" style="stop-color:rgba(255,75,75,0.6);stop-opacity:0.7" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="groundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:0.5" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:0.3" />
+            </linearGradient>
+            <linearGradient id="concreteGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.15);stop-opacity:0.95" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:0.85" />
+            </linearGradient>
+            <pattern id="concreteTexture" patternUnits="userSpaceOnUse" width="8" height="8">
+              <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.15)" />
+              <circle cx="6" cy="6" r="1" fill="rgba(255,255,255,0.1)" />
+            </pattern>
+            <pattern id="groundTexture" patternUnits="userSpaceOnUse" width="6" height="6">
+              <rect x="0" y="0" width="3" height="3" fill="rgba(255,255,255,0.1)" />
+              <rect x="3" y="3" width="3" height="3" fill="rgba(255,255,255,0.05)" />
+            </pattern>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+            </filter>
+          </defs>
+          <!-- Ground plane with texture -->
+          <rect class="ground-plane" x="80" y="220" width="240" height="30" rx="4" />
+          <rect class="ground-texture" x="80" y="220" width="240" height="30" rx="4" fill="url(#groundTexture)" />
+          <!-- High-rise rebar (dense grid with diagonal bracing) -->
+          <g class="rebar-highrise">
+            <path d="M182 80 V220 M188 80 V220 M212 80 V220 M218 80 V220 M180 90 H220 M180 100 H220 M180 110 H220 M180 120 H220 M180 130 H220 M180 140 H220 M180 150 H220 M180 160 H220 M180 170 H220 M180 180 H220 M180 190 H220 M180 200 H220 M180 210 H220 M200 80 V60" />
+          </g>
+          <g class="rebar-diagonal">
+            <path d="M185 80 L215 220 M215 80 L185 220" />
+          </g>
+          <!-- Mid-rise rebar (wider, with arches and diagonal supports) -->
+          <g class="rebar-midrise">
+            <path d="M100 120 V220 M140 120 V220 M100 140 H140 M100 160 H140 M100 180 H140 M110 120 C120 100 130 100 140 120 M110 140 C120 130 130 130 140 140 M110 160 C120 140 130 140 140 160 M100 120 L140 220 M140 120 L100 220 M110 220 V230 M130 220 V230" />
+          </g>
+          <!-- Low-rise annex rebar (sloped roof with cross-bracing) -->
+          <g class="rebar-lowrise">
+            <path d="M260 160 V220 M300 160 V220 M270 160 V220 M290 160 V220 M260 180 H300 M260 160 L280 140 L300 160 M260 140 H300 M260 160 L300 220 M300 160 L260 220" />
+          </g>
+          <!-- Concrete for high-rise (full fill) -->
+          <rect class="concrete-highrise" x="180" y="80" width="40" height="140" fill="url(#concreteTexture)" />
+          <rect class="concrete-highrise" x="180" y="80" width="40" height="140" fill="url(#concreteGradient)" style="opacity:0.3" />
+          <!-- Concrete for mid-rise (partial fill) -->
+          <rect class="concrete-midrise" x="100" y="120" width="20" height="100" fill="url(#concreteTexture)" />
+          <!-- Concrete for low-rise (thin layer) -->
+          <rect class="concrete-lowrise" x="260" y="160" width="40" height="20" fill="url(#concreteTexture)" />
+          <!-- Force arrow on high-rise -->
+          <path class="force-arrow" d="M240 100 H260 M250 90 L260 100 L250 110" />
+        </svg>
+      </div>
+
+                    <h3>Structural Design</h3>
+                    <p>Robust engineering for durable, safe structures. Our structural solutions ensure longevity and safety while maintaining design integrity.</p>
+                    
+                </div>
+<div class="service-card" data-href="bim-page.html">
+       <div class="icon-wrap">
+        <svg class="bim-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="33%" style="stop-color:rgba(255,75,75,0.8);stop-opacity:0.9" />
+              <stop offset="66%" style="stop-color:rgba(255,75,75,0.6);stop-opacity:0.7" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.92);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.7);stop-opacity:0.9" />
+            </linearGradient>
+            <linearGradient id="pipeGradientRed" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,1);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(255,75,75,0.8);stop-opacity:0.9" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.5);stop-opacity:0.7" />
+            </linearGradient>
+            <linearGradient id="pipeGradientBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(75,75,255,1);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(75,75,255,0.8);stop-opacity:0.9" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.5);stop-opacity:0.7" />
+            </linearGradient>
+            <linearGradient id="pipeGradientYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,75,1);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(255,255,75,0.8);stop-opacity:0.9" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.5);stop-opacity:0.7" />
+            </linearGradient>
+            <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0);stop-opacity:0" />
+            </linearGradient>
+            <pattern id="renderTexture" patternUnits="userSpaceOnUse" width="10" height="5">
+              <rect x="0" y="0" width="10" height="2" fill="rgba(255,255,255,0.1)" />
+              <rect x="5" y="2" width="5" height="2" fill="rgba(255,255,255,0.15)" />
+            </pattern>
+            <pattern id="concreteTexture" patternUnits="userSpaceOnUse" width="8" height="8">
+              <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.15)" />
+              <circle cx="6" cy="6" r="1" fill="rgba(255,255,255,0.1)" />
+            </pattern>
+            <pattern id="dataTexture" patternUnits="userSpaceOnUse" width="4" height="4">
+              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.2)" />
+            </pattern>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+            </filter>
+          </defs>
+          <!-- Structural grid -->
+          <g class="bim-grid">
+            <path d="M100 100 V220 M120 100 V220 M160 100 V220 M200 100 V220 M240 100 V220 M280 100 V220 M100 100 H300 M100 140 H300 M100 180 H300 M100 220 H300" />
+          </g>
+          <!-- Foundation base -->
+          <rect class="bim-foundation" x="100" y="220" width="200" height="20" />
+          <!-- Building floors -->
+          <rect class="bim-floor bim-floor-1" x="100" y="180" width="200" height="40" />
+          <rect class="bim-floor bim-floor-2" x="100" y="140" width="200" height="40" />
+          <rect class="bim-floor bim-floor-3" x="100" y="100" width="200" height="40" />
+          <!-- Windows -->
+          <rect class="bim-window bim-window-1" x="240" y="190" width="20" height="20" rx="2" />
+          <rect class="bim-window bim-window-2" x="240" y="150" width="20" height="20" rx="2" />
+          <rect class="bim-window bim-window-3" x="240" y="110" width="20" height="20" rx="2" />
+          <!-- MEP pipes -->
+          <path class="bim-pipe bim-pipe-red" d="M120 220 C140 210 160 210 180 220 V160 H240 V100" />
+          <path class="bim-pipe bim-pipe-blue" d="M160 220 C180 200 200 200 220 220 V140 H260 V100" />
+          <path class="bim-pipe bim-pipe-yellow" d="M200 220 C220 210 240 210 260 220 V120 H280 V100" />
+          <!-- Data overlay panel -->
+          <rect class="bim-data" x="260" y="80" width="80" height="60" rx="4" />
+          <circle class="bim-data-node" cx="270" cy="90" r="3" />
+          <circle class="bim-data-node" cx="290" cy="90" r="3" />
+          <circle class="bim-data-node" cx="310" cy="90" r="3" />
+          <circle class="bim-data-node" cx="270" cy="110" r="3" />
+          <circle class="bim-data-node" cx="290" cy="110" r="3" />
+          <circle class="bim-data-node" cx="310" cy="110" r="3" />
+          <path class="bim-data-connector" d="M270 90 H290 M290 90 H310 M270 110 H290 M290 110 H310 M270 90 V110 M290 90 V110 M310 90 V110" />
+          <text class="bim-data-label" x="270" y="135" font-family="Inter, sans-serif" font-size="8" text-anchor="start">Level 1</text>
+          <text class="bim-data-label" x="290" y="135" font-family="Inter, sans-serif" font-size="8" text-anchor="middle">Level 2</text>
+          <text class="bim-data-label" x="310" y="135" font-family="Inter, sans-serif" font-size="8" text-anchor="end">Level 3</text>
+          <!-- 4D Timeline -->
+          <rect class="bim-timeline" x="100" y="240" width="200" height="10" rx="2" />
+          <rect class="bim-timeline-progress" x="100" y="240" width="10" height="10" rx="2" />
+          <circle class="bim-marker bim-marker-1" cx="150" cy="245" r="4" />
+          <circle class="bim-marker bim-marker-2" cx="190" cy="245" r="4" />
+          <circle class="bim-marker bim-marker-3" cx="230" cy="245" r="4" />
+          <circle class="bim-marker bim-marker-4" cx="270" cy="245" r="4" />
+          <!-- Glow outline -->
+          <path class="bim-glow" d="M100 100 H300 V220 H100 Z" />
+        </svg>
+      </div>
+
+                    <h3>Building Information Modeling (BIM)</h3>
+                    <p>Comprehensive 3D modeling for seamless project visualization, coordination, and efficient construction from concept to completion.</p>
+                    
+                </div>
+
+                <div class="service-card" data-href="interior-design.html">
+                   <div class="icon-wrap">
+        <svg class="interior-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="lampGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(255,75,75,0.7);stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.92);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.7);stop-opacity:0.9" />
+            </linearGradient>
+            <pattern id="sofaTexture" patternUnits="userSpaceOnUse" width="4" height="4">
+              <circle cx="2" cy="2" r="1.5" fill="rgba(255,75,75,0.3)" />
+            </pattern>
+            <pattern id="rugTexture" patternUnits="userSpaceOnUse" width="6" height="6">
+              <rect x="0" y="0" width="3" height="3" fill="rgba(255,255,255,0.15)" />
+              <rect x="3" y="3" width="3" height="3" fill="rgba(255,255,255,0.1)" />
+            </pattern>
+            <pattern id="potTexture" patternUnits="userSpaceOnUse" width="5" height="5">
+              <circle cx="2.5" cy="2.5" r="1.2" fill="rgba(255,255,255,0.2)" />
+            </pattern>
+            <pattern id="woodTexture" patternUnits="userSpaceOnUse" width="8" height="4">
+              <rect x="0" y="0" width="8" height="2" fill="rgba(255,255,255,0.12)" />
+              <rect x="4" y="2" width="4" height="2" fill="rgba(255,255,255,0.08)" />
+            </pattern>
+            <pattern id="wallTexture" patternUnits="userSpaceOnUse" width="6" height="6">
+              <line x1="3" y1="0" x2="3" y2="6" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+            </pattern>
+            <pattern id="floorTexture" patternUnits="userSpaceOnUse" width="8" height="4">
+              <line x1="0" y1="2" x2="8" y2="2" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+            </pattern>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+            </filter>
+            <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.5);stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0);stop-opacity:0" />
+            </radialGradient>
+          </defs>
+          <!-- Wall and floor -->
+          <rect class="interior-wall" x="100" y="80" width="200" height="140" />
+          <rect class="interior-floor" x="100" y="220" width="200" height="60" />
+          <!-- Rug with fringe -->
+          <rect class="interior-rug" x="100" y="220" width="200" height="60" rx="4" />
+          <path class="interior-rug" d="M100 220 H110 M120 220 H130 M140 220 H150 M160 220 H170 M180 220 H190 M200 220 H210 M220 220 H230 M240 220 H250 M260 220 H270 M280 220 H290 M300 220 H310" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+          <!-- Sofa with stitching and cushions -->
+          <path class="interior-sofa" d="M100 180 H240 C250 180 250 190 240 190 H110 C100 190 100 180 100 180 Z" />
+          <rect class="interior-sofa" x="120" y="160" width="100" height="20" rx="4" />
+          <rect class="interior-sofa" x="100" y="180" width="20" height="40" rx="4" />
+          <rect class="interior-sofa" x="220" y="180" width="20" height="40" rx="4" />
+          <rect class="interior-sofa" x="130" y="170" width="20" height="10" rx="2" fill="url(#windowGradient)" />
+          <rect class="interior-sofa" x="160" y="170" width="20" height="10" rx="2" fill="url(#windowGradient)" />
+          <rect class="interior-sofa" x="190" y="170" width="15" height="15" rx="2" fill="url(#windowGradient)" />
+          <path class="interior-sofa" d="M100 180 H240 M100 190 H240 M110 180 V190 M230 180 V190" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+          <!-- Coffee table with vase and books -->
+          <rect class="interior-detail" x="140" y="200" width="80" height="20" rx="6" fill="url(#woodTexture)" />
+          <rect class="interior-detail" x="170" y="190" width="10" height="10" rx="2" fill="url(#windowGradient)" />
+          <rect class="interior-detail" x="165" y="195" width="20" height="5" rx="1" fill="url(#windowGradient)" />
+          <!-- Fern with layered fronds -->
+          <path class="interior-detail" d="M260 160 C270 130 290 130 300 160 C290 190 270 190 260 160" fill="url(#windowGradient)" />
+          <path class="interior-detail" d="M270 150 C280 120 300 120 310 150 C300 180 280 180 270 150" fill="url(#windowGradient)" />
+          <path class="interior-detail" d="M265 155 C275 125 295 125 305 155 C295 185 275 185 265 155" fill="url(#windowGradient)" />
+          <path class="interior-detail" d="M260 165 C270 135 290 135 300 165 C290 195 270 195 260 165" fill="url(#windowGradient)" />
+          <path class="interior-detail" d="M270 145 C280 115 300 115 310 145 C300 175 280 175 270 145" fill="url(#windowGradient)" />
+          <rect class="interior-detail" x="260" y="190" width="20" height="30" rx="2" fill="url(#potTexture)" />
+          <rect class="interior-detail" x="260" y="188" width="20" height="2" fill="url(#windowGradient)" />
+          <!-- Chandelier-style pendant light -->
+          <path class="pendant-light" d="M160 80 C180 120 140 120 160 80 M150 80 C165 110 135 110 150 80 M170 80 C185 110 155 110 170 80 M145 80 C160 115 130 115 145 80 M175 80 C190 115 160 115 175 80" />
+          <circle class="pendant-light" cx="160" cy="80" r="3" fill="url(#lampGlow)" />
+          <circle class="pendant-light" cx="150" cy="80" r="3" fill="url(#lampGlow)" />
+          <circle class="pendant-light" cx="170" cy="80" r="3" fill="url(#lampGlow)" />
+          <circle class="pendant-light" cx="145" cy="80" r="3" fill="url(#lampGlow)" />
+          <circle class="pendant-light" cx="175" cy="80" r="3" fill="url(#lampGlow)" />
+          <!-- Floor lamp with tripod base -->
+          <path class="floor-lamp" d="M320 120 C340 160 300 160 320 120 V220 M310 220 H330 M315 220 H325 M320 210 H320 V230" />
+          <path class="floor-lamp" d="M320 120 C330 140 310 140 320 120" fill="url(#lampGlow)" />
+          <!-- Wall art -->
+          <rect class="interior-art" x="280" y="100" width="40" height="30" rx="2" />
+          <rect class="interior-art" x="275" y="95" width="50" height="40" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+          <rect class="interior-art" x="280" y="140" width="30" height="30" rx="2" />
+          <rect class="interior-art" x="275" y="135" width="40" height="40" rx="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+        </svg>
+      </div>
+
+
+                    <h3>Interior Design</h3>
+                    <p>Functional and aesthetic indoor spaces. We transform interiors into inspiring environments that reflect your vision and lifestyle.</p>
+                    
+                </div>
+                <div class="service-card" data-href="3d-rendering.html">
+                     <div class="icon-wrap">
+        <svg class="render-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="renderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(255,75,75,0.7);stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="renderGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+              <stop offset="50%" style="stop-color:rgba(255,75,75,0.7);stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:rgba(255,75,75,0.3);stop-opacity:0.5" />
+            </linearGradient>
+            <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(255,255,255,0.92);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgba(255,255,255,0.7);stop-opacity:0.9" />
+            </linearGradient>
+            <pattern id="renderTexture" patternUnits="userSpaceOnUse" width="10" height="5">
+              <rect x="0" y="0" width="10" height="2" fill="rgba(255,255,255,0.1)" />
+              <rect x="5" y="2" width="5" height="2" fill="rgba(255,255,255,0.15)" />
+            </pattern>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+            </filter>
+          </defs>
+          <g class="render-wire">
+            <path d="M120 180 L280 180 L300 220 L140 220 Z" />
+            <path d="M130 140 L270 140 L290 180 L150 180 Z" />
+            <path d="M140 100 L260 100 L280 140 L160 140 Z" />
+            <path d="M150 60 L250 60 L270 100 L170 100 Z" />
+            <path d="M140 60 L140 220 M260 60 L260 220" />
+            <path d="M130 140 H110 M270 140 H290 M140 100 H120 M260 100 H280" />
+            <rect x="160" y="190" width="20" height="20" fill="url(#windowGradient)" />
+            <rect x="220" y="190" width="20" height="20" fill="url(#windowGradient)" />
+            <rect x="170" y="150" width="20" height="20" fill="url(#windowGradient)" />
+            <rect x="230" y="150" width="20" height="20" fill="url(#windowGradient)" />
+            <rect x="180" y="110" width="20" height="20" fill="url(#windowGradient)" />
+            <path d="M200 60 V40" />
+          </g>
+          <path class="render-solid" d="M120 180 L280 180 L300 220 L140 220 Z M130 140 L270 140 L290 180 L150 180 Z M140 100 L260 100 L280 140 L160 140 Z M150 60 L250 60 L270 100 L170 100 Z" />
+          <path class="render-glow" d="M120 180 L280 180 L300 220 L140 220 Z M130 140 L270 140 L290 180 L150 180 Z M140 100 L260 100 L280 140 L160 140 Z M150 60 L250 60 L270 100 L170 100 Z" />
+        </svg>
+      </div>
+
+
+                    <h3>3D Rendering & Visualization</h3>
+                    <p>High-quality 3D models and virtual tours for design previews. Experience your project before construction begins.</p>
+                    
+                </div>
+                <div class="service-card" data-href="estimation-page.html">
+                    <div class="service-icon-wrap">
+                        <svg class="estimation-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:rgba(255,75,75,0.7);stop-opacity:0.9" />
+                                </linearGradient>
+                            </defs>
+                            <rect class="calc-icon" x="100" y="80" width="200" height="120" rx="8" />
+                            <rect class="calc-icon" x="120" y="100" width="20" height="20" rx="2" />
+                            <rect class="calc-icon" x="150" y="100" width="20" height="20" rx="2" />
+                            <rect class="calc-icon" x="180" y="100" width="20" height="20" rx="2" />
+                            <rect class="cost-bar cost-bar-1" x="140" y="120" width="30" height="100" rx="4" />
+                            <rect class="cost-bar cost-bar-2" x="190" y="100" width="30" height="120" rx="4" />
+                            <rect class="cost-bar cost-bar-3" x="240" y="140" width="30" height="80" rx="4" />
+                        </svg>
+                    </div>
+                    <h3>Estimation & Consultation</h3>
+                    <p>Accurate cost estimates and expert consultation services. We provide transparent pricing and professional guidance throughout your project.</p>
+                    
+                </div>
+                <div class="service-card" data-href="project-management.html">
+                   <div class="service-icon-wrap">
+                        <svg class="gantt-scene" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="checkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:rgba(255,75,75,0.96);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:rgba(255,75,75,0.7);stop-opacity:0.9" />
+                                </linearGradient>
+                            </defs>
+                            <line x1="100" y1="80" x2="300" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+                            <line x1="100" y1="120" x2="300" y2="120" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+                            <rect class="task-bar task-bar-1" x="100" y="100" width="160" height="30" rx="4" />
+                            <rect class="task-bar task-bar-2" x="100" y="140" width="120" height="30" rx="4" />
+                            <path class="task-check" d="M260 110 L270 120 L290 100" />
+                            <path class="task-check" d="M220 150 L230 160 L250 140" />
+                        </svg>
+                    </div>
+                    <h3>Project Management</h3>
+                    <p>Efficient oversight from planning to completion. We ensure your project stays on schedule and within budget.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="dark">
+        <div class="section-container">
+            <h2>OUR <span>PROJECTS</span></h2>
+            <div class="projects-filters">
+                <button class="active" data-filter="all">All</button>
+                <button data-filter="residential">Residential</button>
+                <button data-filter="commercial">Commercial</button>
+                <button data-filter="renovation">Renovation</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card active" data-category="residential">
+                    <div class="project-image" style="background-image: url('https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg');"></div>
+                    <div class="project-content">
+                        <h3>Moksha Hotel</h3>
+                        <p><strong>Location:</strong> Ambalangoda | <strong>Year:</strong> 2023</p>
+                        <p><strong>Type:</strong> Eco-Friendly Resort</p>
+                        <p>A luxurious retreat blending local wood and brick with sustainable design, featuring open-air spaces and natural ventilation systems to harmonize with the coastal environment.</p>
+                        <a class="cta-button" href="project_moksha_hotel_page.html" target="_blank">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card active" data-category="commercial">
+                    <div class="project-image" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');"></div>
+                    <div class="project-content">
+                        <h3>Jungle Office Complex</h3>
+                        <p><strong>Location:</strong> Galle | <strong>Year:</strong> 2022</p>
+                        <p><strong>Type:</strong> Sustainable Office</p>
+                        <p>A modern office complex with green roofs and rainwater harvesting, designed to minimize environmental impact while providing a productive workspace with natural light integration.</p>
+                    </div>
+                </div>
+                <div class="project-card active" data-category="residential">
+                    <div class="project-image" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');"></div>
+                    <div class="project-content">
+                        <h3>Linear House</h3>
+                        <p><strong>Location:</strong> Battaramulla | <strong>Year:</strong> 2021</p>
+                        <p><strong>Type:</strong> Minimalist Villa</p>
+                        <p>A sleek, linear layout with large glass windows and an open courtyard, emphasizing minimalism and indoor-outdoor living with eco-friendly materials.</p>
+                    </div>
+                </div>
+                <div class="project-card active" data-category="renovation">
+                    <div class="project-image" style="background-image: url('https://blog.architizer.com/wp-content/uploads/sri-lanka.jpg');"></div>
+                    <div class="project-content">
+                        <h3>Renovated Villa</h3>
+                        <p><strong>Location:</strong> Matara | <strong>Year:</strong> 2024</p>
+                        <p><strong>Type:</strong> Heritage Restoration</p>
+                        <p>A restored colonial villa with modern upgrades, preserving original architectural elements while adding contemporary interiors and energy-efficient systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="light">
+        <div class="section-container">
+            <h2>CLIENT <span>TESTIMONIALS</span></h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Delivered EXCEPTIONAL work in architecture and interior design, showcasing unparalleled professionalism, creativity, and perfect brand alignment. Working with Dilan was a breeze; his deep understanding, politeness, and prompt delivery made the whole process smooth. Highly recommended! 👏"</p>
+                    <div class="testimonial-author">Brianna Diaz</div>
+                    <div class="testimonial-position">United States of America</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Septan Developers truly nailed our project, showing outstanding creativity and an impressive eye for detail that aligned perfectly with our brand! 🤩 Working with them was a breeze too; their proactive communication, quick responses, and willingness to go the extra mile made the whole process smooth. Highly recommend for any architecture & interior design needs!"</p>
+                    <div class="testimonial-author">Jane Smith</div>
+                    <div class="testimonial-position">United Kingdom</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Septan Developers exceeded all expectations with their professionalism and meticulous attention to detail in our architecture project. Their deep understanding of design principles and proactive communication made the process seamless. Truly a top-notch experience, highly recommended! 👌"</p>
+                    <div class="testimonial-author">Simon Baker</div>
+                    <div class="testimonial-position">Australia</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"We hired Septan Developers for our master bedroom and walk-in project, and the results exceeded our expectations. He listened to our ideas, offered creative solutions, and perfectly balanced functionality with style. The process was smooth, with clear communication and timely revisions. His attention to detail and ability to stay within budget made the experience stress-free. Highly recommended!"</p>
+                    <div class="testimonial-author">Rose Elizabeth</div>
+                    <div class="testimonial-position">Ierland</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+ 			<i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"I'm fully satisfied with the delivery. I find the decoration a bit dull, but I like the idea of the furniture. It allows me to move forward with my project. Thank you, Septan Developers. Good work overall. Best of luck with your future projects."</p>
+                    <div class="testimonial-author">Daniel Caba</div>
+                    <div class="testimonial-position">Switzerland</div>
+                </div>
+<div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+ 			<i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"What can I say, Septan Developers is VERY creative! They have bold designs. They know how to maximize the space available to deliver a well-designed concept. They were able to be creative in a way to visualize our two-story loft is a way we were not. Defiantly inspired us to reimagine our space."</p>
+                    <div class="testimonial-author">Amir Khalid</div>
+                    <div class="testimonial-position">United Arab Emirates</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="dark">
+        <div class="section-container">
+            <h2>LATEST <span>ARTICLES</span></h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image" style="background-image: url('https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg');"></div>
+                    <div class="blog-content">
+                        <div class="blog-category">Sustainability</div>
+                        <h3>Sustainable Design Trends 2025</h3>
+                        <div class="blog-date">Published: October 15, 2025</div>
+                        <p class="blog-excerpt">Explore the latest trends in sustainable architecture shaping the future of eco-friendly construction.</p>
+                        <a href="blog_sustainable_design.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image" style="background-image: url('https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg');"></div>
+                    <div class="blog-content">
+                        <div class="blog-category">Commercial</div>
+                        <h3>Designing Modern Office Spaces</h3>
+                        <div class="blog-date">Published: October 10, 2025</div>
+                        <p class="blog-excerpt">Insights into creating efficient and inspiring commercial workspaces with a focus on employee well-being.</p>
+                        <a href="blog_office_spaces.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image" style="background-image: url('https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg');"></div>
+                    <div class="blog-content">
+                        <div class="blog-category">Residential</div>
+                        <h3>The Rise of Minimalist Living</h3>
+                        <div class="blog-date">Published: October 5, 2025</div>
+                        <p class="blog-excerpt">Discover how minimalist design principles are transforming residential architecture in Sri Lanka.</p>
+                        <a href="blog_minimalist_living.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="light">
+        <div class="section-container">
+            <h2>GET IN <span>TOUCH</span></h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <input type="hidden" id="csrf_token" name="csrf_token">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone" required>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                    <div id="form-message"></div>
+                    <div id="form-success"></div>
+                </form>
+                <div class="contact-info-section">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Office Address</strong>
+                            <p>Septan Developers (Pvt) Ltd<br>Ambalangoda, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+94 76 3132675</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>septandevelopers@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container-contact">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31643.45039811249!2d79.86124199999998!3d6.927078999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae183cd06a4f207:0xc2e135d975365914!2sSeptan%20Developers%20(Pvt)%20Ltd!5e0!3m2!1sen!2sus!4v1697803541000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://tiktok.com/@septandevelopers" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('nav-menu').classList.remove('active');
+                }
+            });
+        });
+
+        // Hero Slider
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 4000);
+
+        // Animated Stats Section
+        const statCards = document.querySelectorAll('.stat-card');
+        const statsObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if(e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    startCountIfNeeded(e.target);
+                    if(e.target.id === 'card-projects') startMapAnimation();
+                }
+            });
+        }, { threshold: 0.35 });
+
+        statCards.forEach(c => statsObserver.observe(c));
+
+        function startCountIfNeeded(card) {
+            const el = card.querySelector('.stat-number');
+            if(!el || el.dataset.counting) return;
+            el.dataset.counting = '1';
+            const target = Number(el.getAttribute('data-target')) || 0;
+            const duration = (target > 50) ? 1500 : 1200;
+            const stepTime = 16;
+            const steps = Math.max(8, Math.floor(duration/stepTime));
+            const inc = target/steps;
+            let val = 0;
+            const t = setInterval(() => {
+                val += inc;
+                if(val >= target - 0.5) {
+                    clearInterval(t);
+                    if(card.id === 'card-clients') {
+                        el.textContent = Math.round(target) + "+";
+                    } else {
+                        el.textContent = Math.round(target) + "+";
+                    }
+                } else {
+                    el.textContent = Math.floor(val);
+                }
+            }, stepTime);
+        }
+
+        // Cube Animation
+        const cubeHolder = document.getElementById('cubeHolder');
+        const n = 3;
+        const mid = (n-1)/2;
+        const baseSize = 14;
+        const gap = 2;
+
+        for(let z=0; z<n; z++) {
+            for(let y=0; y<n; y++) {
+                for(let x=0; x<n; x++) {
+                    const el = document.createElement('div');
+                    el.className = 'cubelet';
+                    const rSize = (baseSize - 4 + Math.round(Math.random()*10));
+                    el.style.setProperty('--size', rSize + 'px');
+                    const ox = (x - mid) * (rSize + gap);
+                    const oy = (y - mid) * (rSize + gap);
+                    const oz = (z - mid) * (rSize + gap);
+                    el.style.setProperty('--tx', ox + 'px');
+                    el.style.setProperty('--ty', oy + 'px');
+                    el.style.setProperty('--tz', oz + 'px');
+                    const rx = (Math.random()*40 - 20).toFixed(2);
+                    const ry = (Math.random()*40 - 20).toFixed(2);
+                    el.style.transform = `translate3d(${ox}px, ${oy}px, ${oz}px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+                    el.style.animationDelay = (Math.random()*0.8).toFixed(2) + 's';
+                    el.style.animationDuration = (1.6 + Math.random()*1.4).toFixed(2) + 's';
+                    cubeHolder.appendChild(el);
+                }
+            }
+        }
+
+        // Map Animation
+        function startMapAnimation() {
+            const mapContainer = document.getElementById('mapContainer');
+            if (mapContainer.dataset.started) return;
+            mapContainer.dataset.started = true;
+
+            function placeDot(el) {
+                el.style.left = (Math.random() * 90) + '%';
+                el.style.top = (Math.random() * 90) + '%';
+                el.style.animationDelay = (Math.random() * 2) + 's';
+                const s = 6 + Math.round(Math.random() * 8);
+                el.style.width = s + 'px';
+                el.style.height = s + 'px';
+            }
+
+            function createDot() {
+                const d = document.createElement('div');
+                d.className = 'dot';
+                placeDot(d);
+                mapContainer.appendChild(d);
+                return d;
+            }
+
+            for(let i = 0; i < 20; i++) {
+                createDot();
+            }
+
+            setInterval(() => {
+                const existing = Array.from(mapContainer.querySelectorAll('.dot'));
+                const removeCount = Math.min(existing.length, Math.floor(existing.length * 0.28));
+                for(let i = 0; i < removeCount; i++) {
+                    const idx = Math.floor(Math.random() * existing.length);
+                    const el = existing[idx];
+                    if(el) { el.remove(); existing.splice(idx, 1); }
+                }
+                const add = 3 + Math.floor(Math.random() * 6);
+                for(let j = 0; j < add; j++) {
+                    createDot();
+                }
+            }, 5200);
+        }
+
+        // Project Filters
+        const filterButtons = document.querySelectorAll('.projects-filters button');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.dataset.filter;
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Make service cards with data-href clickable
+        document.querySelectorAll('.service-card[data-href]').forEach(card => {
+            card.addEventListener('click', () => {
+                const to = card.getAttribute('data-href');
+                if (to) window.location.href = to;
+            });
+        });
+
+        // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const errorMessage = document.getElementById('form-message');
+            const successMessage = document.getElementById('form-success');
+
+            errorMessage.classList.remove('active');
+            successMessage.classList.remove('active');
+
+            // Simulate form submission
+            successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            successMessage.classList.add('active');
+            form.reset();
+        });
+    </script>
+</body>
+</html>

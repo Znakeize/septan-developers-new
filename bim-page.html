@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Information Modeling - Septan Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: #000; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); padding: 1rem 2rem; z-index: 1000; border-bottom: 1px solid #333; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: #dc2626; letter-spacing: 2px; }
+        .logo a { color: #dc2626; text-decoration: none; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul li { position: relative; }
+        nav ul li a { color: #fff; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s ease; }
+        nav ul li a:hover { color: #dc2626; }
+        nav ul li.dropdown > ul { display: none; position: absolute; top: 100%; left: 0; background: rgba(0, 0, 0, 0.98); padding: 1rem; min-width: 250px; border: 1px solid #333; margin-top: 0.5rem; }
+        nav ul li.dropdown:hover > ul { display: block; }
+        nav ul li.dropdown > ul li { margin: 0.5rem 0; }
+        .service-hero { min-height: 70vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920'); background-size: cover; background-position: center; background-attachment: fixed; text-align: center; padding: 150px 20px 80px; position: relative; }
+        .service-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1; }
+        .service-hero-content { position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; }
+        .service-hero h1 { font-size: 4.5rem; font-weight: 900; letter-spacing: 6px; margin-bottom: 30px; text-transform: uppercase; }
+        .service-hero h1 span { color: #dc2626; }
+        .service-hero p { font-size: 1.4rem; color: #ccc; line-height: 1.8; margin-bottom: 40px; }
+        .cta-button { background: #dc2626; color: #fff; padding: 1.2rem 3rem; border: none; text-transform: uppercase; font-weight: 700; text-decoration: none; display: inline-block; letter-spacing: 2px; transition: all 0.3s ease; }
+        .cta-button:hover { background: #fff; color: #dc2626; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4); }
+        section { padding: 100px 20px; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        h2 { font-size: 3.5rem; font-weight: 900; text-align: center; margin-bottom: 80px; letter-spacing: 5px; text-transform: uppercase; }
+        h2 span { color: #dc2626; }
+        h3 { font-size: 2.5rem; color: #dc2626; margin-bottom: 30px; letter-spacing: 3px; text-transform: uppercase; }
+        p { font-size: 1.2rem; line-height: 2; color: #ccc; margin-bottom: 30px; }
+        .service-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin: 80px 0; }
+        .feature-box { background: rgba(220, 38, 38, 0.05); padding: 50px; border-left: 5px solid #dc2626; transition: all 0.3s ease; }
+        .feature-box:hover { background: rgba(220, 38, 38, 0.1); transform: translateX(10px); }
+        .feature-box h4 { font-size: 1.8rem; color: #dc2626; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; }
+        .feature-box p { font-size: 1.1rem; line-height: 1.8; color: #999; }
+        .process-section { background: #111; padding: 100px 20px; }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 60px; }
+        .process-step { text-align: center; padding: 40px 30px; background: #000; border: 1px solid #222; transition: all 0.3s ease; }
+        .process-step:hover { border-color: #dc2626; transform: translateY(-10px); box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2); }
+        .step-number { width: 80px; height: 80px; background: #dc2626; color: #fff; font-size: 2.5rem; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border-radius: 50%; }
+        .process-step h4 { font-size: 1.5rem; margin-bottom: 20px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        .process-step p { color: #999; font-size: 1rem; line-height: 1.6; }
+        .contact-section { background: #000; padding: 100px 20px; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
+        .contact-card { text-align: center; padding: 50px 30px; background: #111; border: 1px solid #222; transition: all 0.3s ease; }
+        .contact-card:hover { border-color: #dc2626; transform: translateY(-10px); box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2); }
+        .contact-card i { font-size: 3rem; color: #dc2626; margin-bottom: 25px; }
+        .contact-card h4 { font-size: 1.5rem; color: #fff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .contact-card p { color: #999; font-size: 1.1rem; }
+        footer { background: #000; padding: 60px 20px 30px; border-top: 1px solid #222; }
+        .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+        .footer-social { margin-bottom: 30px; }
+        .footer-social a { color: #fff; font-size: 1.8rem; margin: 0 15px; transition: all 0.3s ease; }
+        .footer-social a:hover { color: #dc2626; transform: scale(1.2); }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: #999; text-decoration: none; margin: 0 15px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .footer-links a:hover { color: #dc2626; }
+        .copyright { color: #666; font-size: 0.9rem; margin-top: 20px; }
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0, 0, 0, 0.98); padding: 2rem; gap: 1rem; }
+            nav ul.active { display: flex; }
+            .service-hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
+            .service-hero p { font-size: 1.1rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            .service-features, .process-steps, .contact-grid { grid-template-columns: 1fr; }
+        }
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 20px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background: #dc2626;
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: #fff;
+            color: #dc2626;
+        }
+
+        .contact-info-section {
+            background: #111;
+            padding: 50px;
+            border: 1px solid #222;
+        }
+
+        .contact-info-section h3 {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-info-item i {
+            color: #dc2626;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .contact-info-item div {
+            flex: 1;
+        }
+
+        .contact-info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .contact-info-item p {
+            color: #999;
+            margin: 0;
+        }
+
+        .map-container-contact {
+            width: 100%;
+            height: 400px;
+            margin-top: 40px;
+            border: 1px solid #222;
+            overflow: hidden;
+        }
+
+        .map-container-contact iframe {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%) invert(90%);
+        }
+
+        #form-message, #form-success {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #form-message {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+
+        #form-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+
+        #form-message.active, #form-success.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><a href="index.html">SEPTAN</a></div>
+            <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <ul id="nav-menu">
+                <li><a href="index.html#about">About</a></li>
+                <li class="dropdown">
+                    <a href="index.html#services">Services</a>
+                    <ul>
+                        <li><a href="architectural-design.html">Architectural Design</a></li>
+                        <li><a href="structural-design.html">Structural Design</a></li>
+			            <li><a href="bim-page.html">Building Information Modeling (BIM)</a></li>
+                        <li><a href="interior-design.html">Interior Design</a></li>
+                        <li><a href="3d-rendering.html">3D Rendering</a></li>
+                        <li><a href="estimation-page.html">Estimation & Consultation</a></li>
+                        <li><a href="project-management.html">Project Management</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="service-hero">
+        <div class="service-hero-content">
+            <h1>BUILDING INFORMATION <span>MODELING</span></h1>
+            <p>Revolutionizing construction through intelligent 3D modeling and seamless project coordination. Our BIM services integrate all building systems for optimal efficiency and collaboration.</p>
+            <a href="#contact" class="cta-button">Start Your Project</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <h3>Advanced BIM Solutions</h3>
+            <p>Building Information Modeling (BIM) is at the heart of our modern construction approach. We create comprehensive digital representations of your project that enable better visualization, coordination, and decision-making throughout the entire building lifecycle.</p>
+            <p>Our BIM services integrate architectural, structural, and MEP (Mechanical, Electrical, Plumbing) systems into a single coordinated model, identifying conflicts before construction begins and ensuring seamless execution on site.</p>
+            <p>From clash detection to 5D cost estimation, our BIM expertise streamlines the construction process, reduces errors, and delivers significant time and cost savings.</p>
+        </div>
+    </section>
+
+    <section style="background: #111;">
+        <div class="section-container">
+            <h2>BIM <span>CAPABILITIES</span></h2>
+            <div class="service-features">
+                <div class="feature-box">
+                    <h4>3D Modeling</h4>
+                    <p>Creating detailed 3D models with accurate geometry, materials, and component specifications for all building elements and systems.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>Clash Detection</h4>
+                    <p>Identifying and resolving conflicts between different building systems before construction starts, eliminating costly on-site changes.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>4D Scheduling</h4>
+                    <p>Integrating time-based information to visualize construction sequences and optimize project timelines for efficient execution.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>5D Cost Estimation</h4>
+                    <p>Linking model elements to cost data for accurate quantity takeoffs and real-time budget management throughout the project.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>MEP Coordination</h4>
+                    <p>Coordinating mechanical, electrical, and plumbing systems for optimal installation routes and maintenance accessibility.</p>
+                </div>
+                <div class="feature-box">
+                    <h4>Facility Management</h4>
+                    <p>Providing as-built BIM models with complete asset information for efficient building operation and lifecycle maintenance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process-section">
+        <div class="section-container">
+            <h2>BIM <span>IMPLEMENTATION</span></h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Model Development</h4>
+                    <p>Creating comprehensive BIM models with detailed architectural, structural, and MEP components in coordinated 3D environment.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>Coordination</h4>
+                    <p>Running clash detection and coordinating all building systems to ensure conflict-free construction and optimal system integration.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Documentation</h4>
+                    <p>Generating construction documents, schedules, and quantity takeoffs directly from the intelligent BIM model.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Handover</h4>
+                    <p>Delivering as-built models with complete asset information for seamless transition to facility management operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Contact Section -->
+    <section id="contact" class="light">
+        <div class="section-container">
+            <h2>GET IN <span>TOUCH</span></h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <input type="hidden" id="csrf_token" name="csrf_token">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone" required>
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                    <div id="form-message"></div>
+                    <div id="form-success"></div>
+                </form>
+                <div class="contact-info-section">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Office Address</strong>
+                            <p>Septan Developers (Pvt) Ltd<br>Ambalangoda, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+94 76 3132675</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>septandevelopers@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container-contact">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31643.45039811249!2d79.86124199999998!3d6.927078999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae183cd06a4f207:0xc2e135d975365914!2sSeptan%20Developers%20(Pvt)%20Ltd!5e0!3m2!1sen!2sus!4v1697803541000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://tiktok.com/@septandevelopers" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        }
+         // Contact Form
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const errorMessage = document.getElementById('form-message');
+            const successMessage = document.getElementById('form-success');
+
+            errorMessage.classList.remove('active');
+            successMessage.classList.remove('active');
+
+            // Simulate form submission
+            successMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            successMessage.classList.add('active');
+            form.reset();
+        });
+    </script>
+</body>
+</html>

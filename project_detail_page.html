@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Name - Septan Developers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - same as service page */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #dc2626;
+        }
+
+        /* Hero Section */
+        .project-hero {
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin-top: 70px;
+        }
+
+        .project-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 4rem;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: #dc2626;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem;
+            color: #ccc;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: #dc2626;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #111;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #222;
+        }
+
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #dc2626;
+        }
+
+        .breadcrumb span {
+            color: #666;
+        }
+
+        /* Main Content */
+        .project-content {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .main-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #dc2626;
+        }
+
+        .main-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #dc2626;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .info-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #dc2626;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #999;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #fff;
+            text-align: right;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .cta-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: #fff;
+            color: #dc2626;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 4rem 0;
+        }
+
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #dc2626;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin: 4rem 0;
+        }
+
+        .timeline-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #dc2626;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #dc2626;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #dc2626;
+            border: 3px solid #000;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* Related Projects */
+        .related-section {
+            margin: 4rem 0;
+        }
+
+        .related-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #dc2626;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .related-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-10px);
+            border-color: #dc2626;
+        }
+
+        .related-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .related-content {
+            padding: 1.5rem;
+        }
+
+        .related-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-content p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 20px 30px;
+            border-top: 1px solid #222;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-social {
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #dc2626;
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .project-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">SEPTAN</a>
+            <ul>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#blog">Blog</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="project-hero" id="projectHero">
+        <div class="hero-content">
+            <div class="project-category" id="projectCategory">Loading...</div>
+            <h1 id="projectTitle">Loading Project...</h1>
+            <div class="project-meta" id="projectMeta">
+                <!-- Meta will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href="/#projects">Projects</a>
+            <span>/</span>
+            <span id="breadcrumbProject">Project Name</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="project-content">
+        <div class="content-grid">
+            <!-- Main Content -->
+            <div class="main-content">
+                <h2>Project Overview</h2>
+                <div id="projectDescription">
+                    <p>Loading project details...</p>
+                </div>
+
+                <div class="project-stats" id="projectStats">
+                    <!-- Stats will be loaded dynamically -->
+                </div>
+
+                <!-- Timeline Section -->
+                <div class="timeline-section" id="timelineSection" style="display: none;">
+                    <h2>Project Timeline</h2>
+                    <div class="timeline" id="projectTimeline">
+                        <!-- Timeline will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Gallery Section -->
+                <div class="gallery-section">
+                    <h2>Project Gallery</h2>
+                    <div class="gallery-grid" id="galleryGrid">
+                        <!-- Gallery will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="info-card">
+                    <h3>Project Details</h3>
+                    <div id="projectDetails">
+                        <!-- Details will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="info-card" id="tagsCard" style="display: none;">
+                    <h3>Tags</h3>
+                    <div class="tags" id="projectTags">
+                        <!-- Tags will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="cta-card">
+                    <h3>Like This Project?</h3>
+                    <p>Let's create something amazing together</p>
+                    <a href="/#contact" class="cta-button">Start Your Project</a>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Related Projects -->
+        <section class="related-section">
+            <h2>Related Projects</h2>
+            <div class="related-grid" id="relatedProjects">
+                <!-- Related projects will be loaded dynamically -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://facebook.com/SeptanDevelopers" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/septan_developers" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com/company/septan-developers-pvt-ltd" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://youtube.com/@SeptanDevelopers" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Septan Developers. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectSlug = urlParams.get('project') || window.location.pathname.split('/').pop().replace('.html', '');
+
+        // Sample project data (replace with API call)
+        const projectData = {
+            'moksha-hotel': {
+                title: 'Moksha Hotel',
+                category: 'residential',
+                location: 'Ambalangoda, Sri Lanka',
+                year: 2023,
+                client_name: 'Moksha Resorts Pvt Ltd',
+                project_type: 'Eco-Friendly Resort',
+                budget_range: '$500K - $1M',
+                area_sqft: 15000,
+                duration_months: 18,
+                featured_image: 'https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg',
+                description: `
+                    <p>Moksha Hotel represents a harmonious blend of contemporary architecture and environmental sustainability. Located in the coastal town of Ambalangoda, this boutique resort exemplifies our commitment to creating spaces that exist in perfect balance with their natural surroundings.</p>
+                    <p>The design philosophy centers on minimal environmental impact while maximizing guest experience. We utilized locally sourced materials including salvaged wood and traditional bricks, reducing the carbon footprint while supporting local craftsmen and preserving traditional building techniques.</p>
+                    <p>Every aspect of the design was carefully considered to enhance natural ventilation, optimize daylight penetration, and create seamless indoor-outdoor transitions. The open-air spaces encourage interaction with nature, while the carefully positioned structures frame stunning views of the surrounding landscape.</p>
+                    <p>Sustainable features include rainwater harvesting systems, solar panels for energy generation, natural ventilation systems that reduce the need for air conditioning, and greywater recycling for landscape irrigation. These systems work together to significantly reduce the resort's environmental impact while maintaining luxury standards.</p>
+                `,
+                stats: [
+                    { number: '15,000', label: 'Square Feet', icon: 'fa-ruler-combined' },
+                    { number: '18', label: 'Months', icon: 'fa-calendar-alt' },
+                    { number: '20', label: 'Rooms', icon: 'fa-bed' },
+                    { number: '100%', label: 'Sustainable', icon: 'fa-leaf' }
+                ],
+                tags: ['Sustainable', 'Coastal', 'Eco-Friendly', 'Resort', 'Modern', 'Natural Materials'],
+                timeline: [
+                    { phase: 'Site Analysis & Planning', description: 'Comprehensive site evaluation and conceptual design development', completion: 100 },
+                    { phase: 'Design Development', description: 'Detailed architectural and structural design, material selection', completion: 100 },
+                    { phase: 'Permits & Approvals', description: 'Obtaining all necessary building permits and environmental clearances', completion: 100 },
+                    { phase: 'Foundation & Structure', description: 'Site preparation, foundation work, and structural frame construction', completion: 100 },
+                    { phase: 'Building Envelope', description: 'Walls, roofing, windows, and weatherproofing installation', completion: 100 },
+                    { phase: 'Interior Finishing', description: 'Interior finishes, fixtures, landscaping, and final touches', completion: 100 }
+                ],
+                gallery: [
+                    'https://www.designboom.com/twitterimages/uploads/2022/10/amila_ruwan-liyanapathirana-wood-locally-bricks-hotel-moksha-nature-sri-lanka-designboom-03-1.jpg',
+                    'https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg',
+                    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800',
+                    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
+                    'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800',
+                    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800'
+                ],
+                services: ['Architectural Design', 'Interior Design', 'Project Management', 'Sustainable Consulting']
+            }
+        };
+
+        function loadProjectData() {
+            const data = projectData[projectSlug];
+            
+            if (!data) {
+                console.error('Project not found');
+                return;
+            }
+
+            // Update hero
+            document.getElementById('projectHero').style.backgroundImage = `url('${data.featured_image}')`;
+            document.getElementById('projectTitle').textContent = data.title;
+            document.getElementById('projectCategory').textContent = data.category.toUpperCase();
+            document.getElementById('breadcrumbProject').textContent = data.title;
+            document.title = `${data.title} - Septan Developers`;
+
+            // Update meta
+            const metaHTML = `
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${data.location}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${data.year}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-building"></i>
+                    <span>${data.project_type}</span>
+                </div>
+            `;
+            document.getElementById('projectMeta').innerHTML = metaHTML;
+
+            // Update description
+            document.getElementById('projectDescription').innerHTML = data.description;
+
+            // Update stats
+            const statsHTML = data.stats.map(s => `
+                <div class="stat-box">
+                    <div class="stat-number">${s.number}</div>
+                    <div class="stat-label"><i class="fas ${s.icon}"></i> ${s.label}</div>
+                </div>
+            `).join('');
+            document.getElementById('projectStats').innerHTML = statsHTML;
+
+            // Update details
+            const detailsHTML = `
+                <div class="info-item">
+                    <span class="info-label">Client:</span>
+                    <span class="info-value">${data.client_name}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Location:</span>
+                    <span class="info-value">${data.location}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Year:</span>
+                    <span class="info-value">${data.year}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Area:</span>
+                    <span class="info-value">${data.area_sqft.toLocaleString()} sq ft</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Duration:</span>
+                    <span class="info-value">${data.duration_months} months</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Budget:</span>
+                    <span class="info-value">${data.budget_range}</span>
+                </div>
+            `;
+            document.getElementById('projectDetails').innerHTML = detailsHTML;
+
+            // Update tags
+            if (data.tags && data.tags.length > 0) {
+                document.getElementById('tagsCard').style.display = 'block';
+                const tagsHTML = data.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                document.getElementById('projectTags').innerHTML = tagsHTML;
+            }
+
+            // Update timeline
+            if (data.timeline && data.timeline.length > 0) {
+                document.getElementById('timelineSection').style.display = 'block';
+                const timelineHTML = data.timeline.map(item => `
+                    <div class="timeline-item">
+                        <div class="timeline-title">${item.phase}</div>
+                        <div class="timeline-desc">${item.description}</div>
+                    </div>
+                `).join('');
+                document.getElementById('projectTimeline').innerHTML = timelineHTML;
+            }
+
+            // Update gallery
+            const galleryHTML = data.gallery.map(img => `
+                <div class="gallery-item" style="background-image: url('${img}')"></div>
+            `).join('');
+            document.getElementById('galleryGrid').innerHTML = galleryHTML;
+
+            // Load related projects (placeholder)
+            loadRelatedProjects(data.category);
+        }
+
+        function loadRelatedProjects(category) {
+            // Placeholder - replace with actual API call
+            const related = [
+                {
+                    title: 'Jungle Office Complex',
+                    image: 'https://static.designboom.com/wp-content/dbsub/451570/2022-10-02/seamless-regeneration-in-the-jungle-5-633956dc14e9a.jpg',
+                    location: 'Galle'
+                },
+                {
+                    title: 'Linear House',
+                    image: 'https://static.designboom.com/wp-content/uploads/2017/03/palinda-kannagara-linear-house-at-battaramulla-sri-lanka-designboom-mobile.jpg',
+                    location: 'Battaramulla'
+                },
+                {
+                    title: 'Renovated Villa',
+                    image: 'https://blog.architizer.com/wp-content/uploads/sri-lanka.jpg',
+                    location: 'Matara'
+                }
+            ];
+
+            const relatedHTML = related.map(p => `
+                <div class="related-card">
+                    <div class="related-image" style="background-image: url('${p.image}')"></div>
+                    <div class="related-content">
+                        <h3>${p.title}</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ${p.location}</p>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('relatedProjects').innerHTML = relatedHTML;
+        }
+
+        // Initialize
+        loadProjectData();
+
+        // Track page view
+        fetch(`${API_URL}/analytics/track`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event_type: 'project_view',
+                page_url: window.location.href,
+                reference_type: 'project',
+                reference_id: projectSlug
+            })
+        }).catch(err => console.log('Analytics tracking failed'));
+    </script>
+</body>
+</html>
